@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compositor Suno — Workflow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <strong>Compositor Suno</strong>
+      <span class="muted"> — versión web (GitHub Pages)</span>
+    </div>
+    <nav>
+      <a href="https://suno.com/create" target="_blank" rel="noopener">Abrir Suno</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Workflow: del ritmo a la letra y al prompt de Suno</h1>
+    <p class="muted">
+      Elegí BPM y estilo, el sistema propone géneros e instrumentos, escribí la idea, el LLM arma la letra
+      y al final copiás Style + Lyrics para pegar en
+      <a href="https://suno.com/create" target="_blank" rel="noopener">suno.com/create</a>.
+      La clave del LLM queda solo en tu navegador: no se sube a GitHub.
+    </p>
+
+    <section class="card" id="sec-llm">
+      <h2>LLM para la letra</h2>
+      <p class="muted">La API key se guarda opcionalmente en <code>localStorage</code> de este navegador. Nunca viaja a GitHub.</p>
+      <label for="llm_provider">Proveedor</label>
+      <select id="llm_provider">
+        <option value="groq">Groq</option>
+        <option value="ollama">Ollama (local)</option>
+      </select>
+      <label for="llm_api_key">API key (Groq empieza con gsk_)</label>
+      <input type="password" id="llm_api_key" autocomplete="off" placeholder="gsk_...">
+      <label for="llm_model">Modelo</label>
+      <input type="text" id="llm_model" placeholder="llama-3.3-70b-versatile">
+      <label>
+        <input type="checkbox" id="llm_remember" checked>
+        Recordar clave en este navegador
+      </label>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" id="llm-test">Ver modelos</button>
+        <button type="button" class="btn btn-secondary" id="llm-forget">Olvidar clave</button>
+        <span class="muted" id="llm-status"></span>
+      </div>
+      <article class="tips" id="llm-renew" hidden></article>
+    </section>
+
+    <div class="progress workflow-progress">
+      <span class="active" data-step-pill="1">1. Ritmo y estilo</span>
+      <span data-step-pill="2">2. Estilos sugeridos</span>
+      <span data-step-pill="3">3. Instrumentos y voz</span>
+      <span data-step-pill="4">4. Idea → letra</span>
+      <span data-step-pill="5">5. Copiar Style + Lyrics</span>
+    </div>
+
+    <form id="workflow-form">
+      <input type="hidden" id="suno_model" value="v6">
+      <input type="hidden" id="structure_template" value="auto">
+
+      <section class="card workflow-step" data-step="1">
+        <h2>1. Ritmo y estilo</h2>
+        <label for="tempo_bpm">BPM (uno o varios, separados por coma)</label>
+        <input type="text" id="tempo_bpm" class="sync-field" data-pick="tempo_bpm_pick" placeholder="Ej: 100, 104">
+        <div id="grid-tempo_bpm"></div>
+        <label for="style_query">Estilo o palabras clave (opcional)</label>
+        <input type="text" id="style_query" placeholder="Ej: cumbia, fiesta, romántico, dembow">
+        <label for="language">Idioma(s) de la letra</label>
+        <input type="text" id="language" class="sync-field" data-pick="language_pick" value="es" placeholder="es, en">
+        <div id="grid-language"></div>
+        <div class="actions">
+          <button type="button" class="btn" id="suggest-styles">Sugerir estilos de música</button>
+          <span class="muted" id="suggest-status"></span>
+        </div>
+      </section>
+
+      <section class="card workflow-step" data-step="2" hidden>
+        <h2>2. Estilos sugeridos por BPM y estilo</h2>
+        <p class="muted">Marcá uno o más. Cada estilo trae tempo, mood, voz, producción, acompañamiento e instrumentos.</p>
+        <div id="suggestions" class="suggestion-list"></div>
+        <label for="genre">Género / estilo final (editable)</label>
+        <input type="text" id="genre">
+        <div class="row">
+          <div>
+            <label for="mood">Mood</label>
+            <input type="text" id="mood">
+          </div>
+          <div>
+            <label for="tempo_term">Términos de ritmo</label>
+            <input type="text" id="tempo_term">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="rhythm_accompaniment">Acompañamiento rítmico</label>
+            <input type="text" id="rhythm_accompaniment">
+          </div>
+          <div>
+            <label for="production_notes">Producción</label>
+            <input type="text" id="production_notes">
+          </div>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn" data-next="3">Seguir con instrumentos</button>
+          <button type="button" class="btn btn-secondary" data-prev="1">Volver</button>
+        </div>
+      </section>
+
+      <section class="card workflow-step" data-step="3" hidden>
+        <h2>3. Instrumentos y voz</h2>
+        <label for="instruments">Instrumentos (editable)</label>
+        <input type="text" id="instruments" class="sync-field" data-pick="instruments_pick">
+        <div id="grid-instruments"></div>
+        <fieldset class="option-fieldset" id="grid-vocal_gender"></fieldset>
+        <label for="vocal_style">Estilo vocal</label>
+        <input type="text" id="vocal_style" class="sync-field" data-pick="vocal_style_pick">
+        <div id="grid-vocal_style"></div>
+        <label for="title">Título (opcional)</label>
+        <input type="text" id="title">
+        <div class="actions">
+          <button type="button" class="btn" data-next="4">Seguir con la idea de la letra</button>
+          <button type="button" class="btn btn-secondary" data-prev="2">Volver</button>
+        </div>
+      </section>
+
+      <section class="card workflow-step" data-step="4" hidden>
+        <h2>4. Idea → prompt LLM → letra</h2>
+        <label for="lyrics_idea">Idea o pedido para la letra</label>
+        <textarea id="lyrics_idea" rows="4" placeholder="Ej: una cumbia para la previa, estribillo corto para cantar a los gritos."></textarea>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="build-llm-prompt">Ver el prompt que recibe el LLM</button>
+          <button type="button" class="btn" id="generate-lyrics">Generar letra con el LLM</button>
+          <span class="muted" id="lyrics-status"></span>
+        </div>
+        <article class="tips" id="lyrics-renew-help" hidden></article>
+        <details id="llm-prompt-details" hidden>
+          <summary>Prompt armado con tu contexto</summary>
+          <div class="copy-block">
+            <button type="button" class="btn btn-secondary" data-copy="llm-prompt-preview">Copiar</button>
+            <pre id="llm-prompt-preview" class="preview-text"></pre>
+          </div>
+        </details>
+        <label for="lyrics_block">Letra (editable, se pega en Suno)</label>
+        <textarea id="lyrics_block" rows="14" placeholder="[Verse]&#10;...&#10;&#10;[Chorus]&#10;..."></textarea>
+        <div class="actions">
+          <button type="button" class="btn" data-next="5">Seguir: copiar Style + Lyrics</button>
+          <button type="button" class="btn btn-secondary" data-prev="3">Volver</button>
+        </div>
+      </section>
+
+      <section class="card workflow-step" data-step="5" hidden>
+        <h2>5. Copiar y pegar en Suno</h2>
+        <p class="muted">Style y Lyrics compuestos según el glosario oficial de Suno. Pegá Style en Custom mode y Lyrics en el campo de letra.</p>
+        <label for="exclude_styles">Exclude styles (opcional)</label>
+        <input type="text" id="exclude_styles" class="sync-field" data-pick="exclude_pick">
+        <div id="grid-exclude"></div>
+        <div class="actions">
+          <button type="button" class="btn" id="build-suno-prompt">Rearmar bloques</button>
+          <span class="muted" id="suno-status"></span>
+        </div>
+        <div id="suno-blocks">
+          <h3>Style + Lyrics</h3>
+          <div class="copy-block">
+            <button type="button" class="btn" data-copy="suno-paste">Copiar Style + Lyrics</button>
+            <pre id="suno-paste" class="preview-text"></pre>
+          </div>
+          <h4>Style of Music</h4>
+          <div class="copy-block">
+            <button type="button" class="btn btn-secondary" data-copy="suno-style">Copiar Style</button>
+            <pre id="suno-style" class="preview-text"></pre>
+          </div>
+          <h4>Lyrics</h4>
+          <div class="copy-block">
+            <button type="button" class="btn btn-secondary" data-copy="suno-lyrics">Copiar Lyrics</button>
+            <pre id="suno-lyrics" class="preview-text"></pre>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn" id="copy-all">Copiar Style + Lyrics</button>
+            <button type="button" class="btn btn-secondary" data-prev="4">Volver</button>
+          </div>
+        </div>
+      </section>
+    </form>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

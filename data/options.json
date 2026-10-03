@@ -1,0 +1,548 @@
+{
+  "languages": [
+    {
+      "value": "es",
+      "label": "Español",
+      "hint": ""
+    },
+    {
+      "value": "en",
+      "label": "English",
+      "hint": ""
+    },
+    {
+      "value": "pt",
+      "label": "Português",
+      "hint": ""
+    },
+    {
+      "value": "fr",
+      "label": "Français",
+      "hint": ""
+    },
+    {
+      "value": "de",
+      "label": "Deutsch",
+      "hint": ""
+    },
+    {
+      "value": "it",
+      "label": "Italiano",
+      "hint": ""
+    },
+    {
+      "value": "ja",
+      "label": "日本語",
+      "hint": ""
+    },
+    {
+      "value": "ko",
+      "label": "한국어",
+      "hint": ""
+    },
+    {
+      "value": "zh",
+      "label": "中文",
+      "hint": ""
+    },
+    {
+      "value": "ar",
+      "label": "العربية",
+      "hint": ""
+    },
+    {
+      "value": "ru",
+      "label": "Русский",
+      "hint": ""
+    }
+  ],
+  "tempo_bpm_presets": [
+    {
+      "value": "92",
+      "label": "Reggaetón ~92 BPM",
+      "hint": ""
+    },
+    {
+      "value": "96",
+      "label": "Dembow ~96 BPM",
+      "hint": ""
+    },
+    {
+      "value": "100",
+      "label": "Cumbia ~100 BPM",
+      "hint": ""
+    },
+    {
+      "value": "104",
+      "label": "Cumbia argentina ~104 BPM",
+      "hint": ""
+    },
+    {
+      "value": "108",
+      "label": "Descontrol ~108 BPM",
+      "hint": ""
+    },
+    {
+      "value": "120",
+      "label": "Pop / allegro ~120 BPM",
+      "hint": ""
+    },
+    {
+      "value": "128",
+      "label": "House ~128 BPM",
+      "hint": ""
+    },
+    {
+      "value": "140",
+      "label": "Dance ~140 BPM",
+      "hint": ""
+    }
+  ],
+  "rhythm_accompaniments": [
+    {
+      "value": "dembow pattern",
+      "label": "Patrón dembow",
+      "hint": ""
+    },
+    {
+      "value": "cumbia beat",
+      "label": "Base cumbia",
+      "hint": ""
+    },
+    {
+      "value": "reggaeton beat",
+      "label": "Beat reggaetón",
+      "hint": ""
+    },
+    {
+      "value": "percu cumbia",
+      "label": "Percusión cumbia",
+      "hint": ""
+    },
+    {
+      "value": "bombo leguero",
+      "label": "Bombo legüero",
+      "hint": ""
+    },
+    {
+      "value": "guira",
+      "label": "Güira",
+      "hint": ""
+    },
+    {
+      "value": "congas",
+      "label": "Congas",
+      "hint": ""
+    },
+    {
+      "value": "brass stabs",
+      "label": "Metales (stabs)",
+      "hint": ""
+    },
+    {
+      "value": "synth brass",
+      "label": "Synth brass",
+      "hint": ""
+    },
+    {
+      "value": "piano montuno",
+      "label": "Piano montuno",
+      "hint": ""
+    },
+    {
+      "value": "off-beat guitar",
+      "label": "Guitarra en off-beat",
+      "hint": ""
+    },
+    {
+      "value": "808 bass",
+      "label": "Bajo 808",
+      "hint": ""
+    },
+    {
+      "value": "Tempo",
+      "label": "Tempo",
+      "hint": "The speed of a piece of music, measured in beats per minute (BPM)"
+    },
+    {
+      "value": "Adagio",
+      "label": "Adagio",
+      "hint": "Slow tempo (66-76 BPM), meaning \"at ease\""
+    },
+    {
+      "value": "Allegro",
+      "label": "Allegro",
+      "hint": "Fast, lively tempo (120-168 BPM)"
+    },
+    {
+      "value": "Andante",
+      "label": "Andante",
+      "hint": "Moderate walking pace (76-108 BPM)"
+    },
+    {
+      "value": "Presto",
+      "label": "Presto",
+      "hint": "Very fast tempo (168-200 BPM)"
+    },
+    {
+      "value": "Rubato",
+      "label": "Rubato",
+      "hint": "Flexible tempo where the performer speeds up and slows down expressively"
+    },
+    {
+      "value": "Syncopation",
+      "label": "Syncopation",
+      "hint": "Rhythmic emphasis on normally weak beats or off-beats"
+    },
+    {
+      "value": "Polyrhythm",
+      "label": "Polyrhythm",
+      "hint": "Two or more conflicting rhythms played simultaneously"
+    },
+    {
+      "value": "Groove",
+      "label": "Groove",
+      "hint": "The rhythmic feel or \"pocket\" that makes you want to move"
+    },
+    {
+      "value": "Downbeat",
+      "label": "Downbeat",
+      "hint": "The first beat of a measure, typically the strongest"
+    },
+    {
+      "value": "Upbeat",
+      "label": "Upbeat",
+      "hint": "The beat before the downbeat, often creating anticipation"
+    }
+  ],
+  "instruments": [
+    {
+      "value": "Instrumentation",
+      "label": "Instrumentation",
+      "hint": "The specific instruments used in a piece"
+    },
+    {
+      "value": "Arrangement",
+      "label": "Arrangement",
+      "hint": "How different instruments and parts are organized"
+    },
+    {
+      "value": "Texture",
+      "label": "Texture",
+      "hint": "The overall sound quality created by combining different elements"
+    },
+    {
+      "value": "Monophonic",
+      "label": "Monophonic",
+      "hint": "Single melodic line without accompaniment"
+    },
+    {
+      "value": "Homophonic",
+      "label": "Homophonic",
+      "hint": "Melody with harmonic accompaniment"
+    },
+    {
+      "value": "Polyphonic",
+      "label": "Polyphonic",
+      "hint": "Multiple independent melodic lines"
+    },
+    {
+      "value": "Orchestration",
+      "label": "Orchestration",
+      "hint": "The art of assigning musical elements to specific instruments"
+    },
+    {
+      "value": "Timbre",
+      "label": "Timbre",
+      "hint": "The unique color or quality of a sound (what makes a guitar sound different from a piano)"
+    },
+    {
+      "value": "Layering",
+      "label": "Layering",
+      "hint": "Stacking multiple sounds or instruments for richness"
+    },
+    {
+      "value": "Sparse",
+      "label": "Sparse",
+      "hint": "Minimal instrumentation with space between elements"
+    },
+    {
+      "value": "Dense",
+      "label": "Dense",
+      "hint": "Many instruments or elements playing simultaneously"
+    },
+    {
+      "value": "808 drums",
+      "label": "808 drums",
+      "hint": ""
+    },
+    {
+      "value": "acoustic guitar",
+      "label": "Guitarra acústica",
+      "hint": ""
+    },
+    {
+      "value": "electric guitar",
+      "label": "Guitarra eléctrica",
+      "hint": ""
+    },
+    {
+      "value": "synth pad",
+      "label": "Synth pad",
+      "hint": ""
+    },
+    {
+      "value": "strings",
+      "label": "Cuerdas",
+      "hint": ""
+    },
+    {
+      "value": "brass",
+      "label": "Metales",
+      "hint": ""
+    },
+    {
+      "value": "piano",
+      "label": "Piano",
+      "hint": ""
+    },
+    {
+      "value": "organ",
+      "label": "Órgano",
+      "hint": ""
+    },
+    {
+      "value": "bass guitar",
+      "label": "Bajo",
+      "hint": ""
+    },
+    {
+      "value": "drum machine",
+      "label": "Drum machine",
+      "hint": ""
+    },
+    {
+      "value": "percussion",
+      "label": "Percusión",
+      "hint": ""
+    },
+    {
+      "value": "choir",
+      "label": "Coro",
+      "hint": ""
+    },
+    {
+      "value": "güira",
+      "label": "Güira",
+      "hint": ""
+    },
+    {
+      "value": "accordion",
+      "label": "Acordeón",
+      "hint": ""
+    },
+    {
+      "value": "dembow",
+      "label": "Dembow",
+      "hint": ""
+    },
+    {
+      "value": "synth bass",
+      "label": "Bajo synth",
+      "hint": ""
+    },
+    {
+      "value": "keyboard",
+      "label": "Teclado",
+      "hint": ""
+    },
+    {
+      "value": "coro",
+      "label": "Coro de pista",
+      "hint": ""
+    }
+  ],
+  "vocal_styles": [
+    {
+      "value": "canto popular",
+      "label": "Canto popular",
+      "hint": ""
+    },
+    {
+      "value": "melodic reggaeton vocal",
+      "label": "Voz melódica de reggaetón",
+      "hint": ""
+    },
+    {
+      "value": "coro",
+      "label": "Coro",
+      "hint": ""
+    },
+    {
+      "value": "autotune",
+      "label": "Autotune",
+      "hint": ""
+    },
+    {
+      "value": "rap",
+      "label": "Rap",
+      "hint": ""
+    },
+    {
+      "value": "Falsetto",
+      "label": "Falsetto",
+      "hint": "High, airy vocal register above normal range"
+    },
+    {
+      "value": "Belt",
+      "label": "Belt",
+      "hint": "Powerful, sustained singing in chest voice at high pitches"
+    },
+    {
+      "value": "Melisma",
+      "label": "Melisma",
+      "hint": "Singing multiple notes on a single syllable"
+    },
+    {
+      "value": "Vocal Run",
+      "label": "Vocal Run",
+      "hint": "Quick succession of notes, often improvised"
+    },
+    {
+      "value": "Harmonization",
+      "label": "Harmonization",
+      "hint": "Multiple voices singing different notes simultaneously"
+    },
+    {
+      "value": "A Cappella",
+      "label": "A Cappella",
+      "hint": "Singing without instrumental accompaniment"
+    },
+    {
+      "value": "Call and Response",
+      "label": "Call and Response",
+      "hint": "Musical conversation where one phrase is answered by another"
+    },
+    {
+      "value": "Scat",
+      "label": "Scat",
+      "hint": "Improvised vocal improvisation using nonsense syllables (common in jazz)"
+    },
+    {
+      "value": "Crooning",
+      "label": "Crooning",
+      "hint": "Soft, intimate singing style"
+    },
+    {
+      "value": "Rapping",
+      "label": "Rapping",
+      "hint": "Rhythmic spoken or chanted lyrics"
+    }
+  ],
+  "vocal_genders": [
+    {
+      "value": "any",
+      "label": "Cualquiera",
+      "hint": ""
+    },
+    {
+      "value": "female",
+      "label": "Femenina",
+      "hint": ""
+    },
+    {
+      "value": "male",
+      "label": "Masculina",
+      "hint": ""
+    }
+  ],
+  "exclude_presets": [
+    {
+      "value": "screaming",
+      "label": "Gritos",
+      "hint": ""
+    },
+    {
+      "value": "metal",
+      "label": "Metal",
+      "hint": ""
+    },
+    {
+      "value": "heavy drums",
+      "label": "Batería pesada",
+      "hint": ""
+    },
+    {
+      "value": "distortion",
+      "label": "Distorsión",
+      "hint": ""
+    },
+    {
+      "value": "male vocals",
+      "label": "Voz masculina",
+      "hint": ""
+    },
+    {
+      "value": "female vocals",
+      "label": "Voz femenina",
+      "hint": ""
+    },
+    {
+      "value": "rap",
+      "label": "Rap",
+      "hint": ""
+    },
+    {
+      "value": "electronic",
+      "label": "Electrónica",
+      "hint": ""
+    },
+    {
+      "value": "country",
+      "label": "Country",
+      "hint": ""
+    },
+    {
+      "value": "autotune",
+      "label": "Autotune",
+      "hint": ""
+    }
+  ],
+  "structure_templates": [
+    {
+      "value": "auto",
+      "label": "Automática (según objetivo)",
+      "hint": ""
+    },
+    {
+      "value": "pop_standard",
+      "label": "Pop: Intro · V1 · Pre · Chorus · V2 · Chorus · Bridge · Chorus · Outro",
+      "hint": ""
+    },
+    {
+      "value": "simple_verse_chorus",
+      "label": "Verse · Chorus · Verse · Chorus · Outro",
+      "hint": ""
+    },
+    {
+      "value": "edm_drop",
+      "label": "Intro · Build · Drop · Break · Drop · Outro",
+      "hint": ""
+    },
+    {
+      "value": "ballad",
+      "label": "Intro · Verse · Chorus · Verse · Chorus · Bridge · Chorus · Outro",
+      "hint": ""
+    },
+    {
+      "value": "hook_only",
+      "label": "Intro · Chorus",
+      "hint": ""
+    },
+    {
+      "value": "pista_baile",
+      "label": "Pista: Intro · Verso · Estribillo · Verso · Estribillo · Descontrol · Estribillo",
+      "hint": ""
+    }
+  ]
+}

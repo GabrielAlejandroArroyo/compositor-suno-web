@@ -1,0 +1,1478 @@
+{
+  "profiles": {
+    "reggaeton": {
+      "bpm": "96",
+      "tempo_term": [
+        "dembow",
+        "groove"
+      ],
+      "mood": [
+        "upbeat",
+        "fiesta"
+      ],
+      "instruments": [
+        "808 drums",
+        "dembow",
+        "synth bass"
+      ],
+      "vocal_style": [
+        "melodic reggaeton vocal"
+      ],
+      "production_notes": [
+        "club mix",
+        "heavy bass"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Reggaetón",
+      "hint": "Dembow, bajo y estribillo de pista."
+    },
+    "ATRX": {
+      "bpm": "102",
+      "tempo_term": [
+        "dembow",
+        "groove"
+      ],
+      "mood": [
+        "fiesta",
+        "upbeat"
+      ],
+      "instruments": [
+        "808 drums",
+        "dembow",
+        "electric guitar"
+      ],
+      "vocal_style": [
+        "melodic reggaeton vocal"
+      ],
+      "production_notes": [
+        "club mix",
+        "heavy bass"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "ATRX",
+      "hint": "Estilo de pista ATRX."
+    },
+    "RKT": {
+      "bpm": "100",
+      "tempo_term": [
+        "dembow",
+        "groove"
+      ],
+      "mood": [
+        "fiesta",
+        "barrio"
+      ],
+      "instruments": [
+        "808 drums",
+        "güira",
+        "electric guitar"
+      ],
+      "vocal_style": [
+        "canto popular",
+        "autotune"
+      ],
+      "production_notes": [
+        "heavy bass",
+        "cumbia beat"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "RKT",
+      "hint": "Reggaetón con cumbia argentina, turreo."
+    },
+    "cumbia": {
+      "bpm": "100",
+      "tempo_term": [
+        "groove"
+      ],
+      "mood": [
+        "upbeat",
+        "bailable"
+      ],
+      "instruments": [
+        "güira",
+        "electric guitar",
+        "accordion",
+        "bass guitar"
+      ],
+      "vocal_style": [
+        "canto popular"
+      ],
+      "production_notes": [
+        "cumbia beat"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Cumbia",
+      "hint": "Base tropical bailable."
+    },
+    "cumbia nacional argentina": {
+      "bpm": "104",
+      "tempo_term": [
+        "groove"
+      ],
+      "mood": [
+        "bailable",
+        "fiesta"
+      ],
+      "instruments": [
+        "accordion",
+        "electric guitar",
+        "güira",
+        "bass guitar"
+      ],
+      "vocal_style": [
+        "canto popular",
+        "coro"
+      ],
+      "production_notes": [
+        "cumbia beat"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Cumbia nacional",
+      "hint": "Cumbia nacional de Argentina."
+    },
+    "cumbia popular argentina": {
+      "bpm": "104",
+      "tempo_term": [
+        "groove"
+      ],
+      "mood": [
+        "fiesta",
+        "barrio"
+      ],
+      "instruments": [
+        "güira",
+        "electric guitar",
+        "accordion",
+        "coro"
+      ],
+      "vocal_style": [
+        "canto popular",
+        "coro"
+      ],
+      "production_notes": [
+        "cumbia beat"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Cumbia popular argentina",
+      "hint": "Cumbia popular, baile de Argentina."
+    },
+    "descontrol": {
+      "bpm": "108",
+      "tempo_term": [
+        "groove",
+        "upbeat"
+      ],
+      "mood": [
+        "descontrol",
+        "fiesta"
+      ],
+      "instruments": [
+        "güira",
+        "electric guitar",
+        "808 drums"
+      ],
+      "vocal_style": [
+        "coro",
+        "canto popular"
+      ],
+      "production_notes": [
+        "heavy bass",
+        "cumbia beat"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Descontrol",
+      "hint": "Cumbia de descontrol, fiesta y coro."
+    },
+    "cumbia villera": {
+      "bpm": "102",
+      "tempo_term": [
+        "groove"
+      ],
+      "mood": [
+        "barrio",
+        "descontrol"
+      ],
+      "instruments": [
+        "electric guitar",
+        "güira",
+        "keyboard"
+      ],
+      "vocal_style": [
+        "canto popular"
+      ],
+      "production_notes": [
+        "cumbia beat"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Cumbia villera",
+      "hint": "Cumbia villera argentina."
+    },
+    "cumbia santafesina": {
+      "bpm": "108",
+      "tempo_term": [
+        "groove"
+      ],
+      "mood": [
+        "bailable",
+        "fiesta"
+      ],
+      "instruments": [
+        "accordion",
+        "güira",
+        "bass guitar"
+      ],
+      "vocal_style": [
+        "canto popular",
+        "coro"
+      ],
+      "production_notes": [
+        "cumbia beat"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Cumbia santafesina",
+      "hint": "Acordeón y baile santafesino."
+    },
+    "cumbia pop": {
+      "bpm": "110",
+      "tempo_term": [
+        "groove"
+      ],
+      "mood": [
+        "upbeat"
+      ],
+      "instruments": [
+        "electric guitar",
+        "synth pad",
+        "güira"
+      ],
+      "vocal_style": [
+        "canto popular"
+      ],
+      "production_notes": [
+        "clean mix"
+      ],
+      "structure_template": "pop_standard",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Cumbia pop",
+      "hint": "Cumbia pop argentina."
+    },
+    "cumbia 420": {
+      "bpm": "98",
+      "tempo_term": [
+        "dembow",
+        "groove"
+      ],
+      "mood": [
+        "fiesta",
+        "barrio"
+      ],
+      "instruments": [
+        "808 drums",
+        "güira",
+        "electric guitar"
+      ],
+      "vocal_style": [
+        "autotune",
+        "canto popular"
+      ],
+      "production_notes": [
+        "heavy bass",
+        "club mix"
+      ],
+      "structure_template": "pista_baile",
+      "suno_model": "v6",
+      "outside": [
+        {
+          "field": "mood",
+          "value": "melancholic",
+          "label": "Melancólico"
+        },
+        {
+          "field": "mood",
+          "value": "romantic",
+          "label": "Romántico"
+        },
+        {
+          "field": "instruments",
+          "value": "piano",
+          "label": "Piano"
+        },
+        {
+          "field": "instruments",
+          "value": "strings",
+          "label": "Cuerdas"
+        },
+        {
+          "field": "instruments",
+          "value": "acoustic guitar",
+          "label": "Guitarra acústica"
+        },
+        {
+          "field": "vocal_style",
+          "value": "whisper",
+          "label": "Susurro"
+        },
+        {
+          "field": "vocal_style",
+          "value": "rap",
+          "label": "Rap"
+        },
+        {
+          "field": "production_notes",
+          "value": "lo-fi",
+          "label": "Lo-fi"
+        },
+        {
+          "field": "production_notes",
+          "value": "cinematic",
+          "label": "Cinematográfico"
+        },
+        {
+          "field": "tempo_term",
+          "value": "half-time",
+          "label": "Half-time"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-wild",
+          "label": "v6-wild, más impredecible"
+        },
+        {
+          "field": "suno_model",
+          "value": "v6-mini",
+          "label": "v6-mini, más rápido"
+        }
+      ],
+      "label": "Cumbia 420",
+      "hint": "Cumbia con trap y reggaetón."
+    },
+    "balada": {
+      "label": "Balada",
+      "hint": "Lenta, emotiva, voz al frente.",
+      "bpm": "72",
+      "tempo_term": [
+        "adagio",
+        "ballad"
+      ],
+      "mood": [
+        "romantic",
+        "melancholic"
+      ],
+      "instruments": [
+        "piano",
+        "strings",
+        "acoustic guitar"
+      ],
+      "vocal_style": [
+        "intimate vocal",
+        "belting"
+      ],
+      "production_notes": [
+        "clean mix",
+        "cinematic"
+      ],
+      "rhythm_accompaniment": [
+        "soft drums"
+      ],
+      "structure_template": "ballad"
+    },
+    "r&b": {
+      "label": "R&B",
+      "hint": "Groove lento, armonías vocales.",
+      "bpm": "78",
+      "tempo_term": [
+        "groove",
+        "laid-back"
+      ],
+      "mood": [
+        "dreamy",
+        "romantic"
+      ],
+      "instruments": [
+        "keyboard",
+        "bass guitar",
+        "drum machine"
+      ],
+      "vocal_style": [
+        "smooth vocal",
+        "falsetto"
+      ],
+      "production_notes": [
+        "warm mix"
+      ],
+      "rhythm_accompaniment": [
+        "808 bass",
+        "finger snaps"
+      ],
+      "structure_template": "pop_standard"
+    },
+    "lo-fi": {
+      "label": "Lo-fi",
+      "hint": "Relajado, texturas y vinilo.",
+      "bpm": "82",
+      "tempo_term": [
+        "laid-back",
+        "chill"
+      ],
+      "mood": [
+        "dreamy",
+        "melancholic"
+      ],
+      "instruments": [
+        "keyboard",
+        "electric guitar",
+        "drum machine"
+      ],
+      "vocal_style": [
+        "soft vocal"
+      ],
+      "production_notes": [
+        "lo-fi",
+        "vinyl crackle"
+      ],
+      "rhythm_accompaniment": [
+        "boom bap drums"
+      ],
+      "structure_template": "simple_verse_chorus"
+    },
+    "hip hop": {
+      "label": "Hip hop",
+      "hint": "Boom bap o moderno, rap al frente.",
+      "bpm": "90",
+      "tempo_term": [
+        "groove",
+        "boom bap"
+      ],
+      "mood": [
+        "barrio",
+        "confident"
+      ],
+      "instruments": [
+        "drum machine",
+        "808 drums",
+        "synth bass"
+      ],
+      "vocal_style": [
+        "rap"
+      ],
+      "production_notes": [
+        "heavy bass"
+      ],
+      "rhythm_accompaniment": [
+        "boom bap drums",
+        "808 bass"
+      ],
+      "structure_template": "simple_verse_chorus"
+    },
+    "bolero": {
+      "label": "Bolero",
+      "hint": "Romántico, guitarras y percusión suave.",
+      "bpm": "92",
+      "tempo_term": [
+        "andante"
+      ],
+      "mood": [
+        "romantic",
+        "melancholic"
+      ],
+      "instruments": [
+        "acoustic guitar",
+        "strings",
+        "percussion"
+      ],
+      "vocal_style": [
+        "canto popular",
+        "intimate vocal"
+      ],
+      "production_notes": [
+        "clean mix"
+      ],
+      "rhythm_accompaniment": [
+        "congas",
+        "bongos"
+      ],
+      "structure_template": "ballad"
+    },
+    "pop": {
+      "label": "Pop",
+      "hint": "Estribillo pegadizo, producción limpia.",
+      "bpm": "120",
+      "tempo_term": [
+        "upbeat",
+        "allegro"
+      ],
+      "mood": [
+        "upbeat",
+        "bright"
+      ],
+      "instruments": [
+        "synth pad",
+        "electric guitar",
+        "drum machine",
+        "bass guitar"
+      ],
+      "vocal_style": [
+        "pop vocal",
+        "belting"
+      ],
+      "production_notes": [
+        "clean mix",
+        "polished"
+      ],
+      "rhythm_accompaniment": [
+        "four on the floor",
+        "claps"
+      ],
+      "structure_template": "pop_standard"
+    },
+    "house": {
+      "label": "House",
+      "hint": "Bombo en negras, club.",
+      "bpm": "125",
+      "tempo_term": [
+        "four on the floor",
+        "groove"
+      ],
+      "mood": [
+        "bailable",
+        "upbeat"
+      ],
+      "instruments": [
+        "drum machine",
+        "synth bass",
+        "synth pad",
+        "piano"
+      ],
+      "vocal_style": [
+        "diva vocal",
+        "chopped vocal"
+      ],
+      "production_notes": [
+        "club mix",
+        "sidechain"
+      ],
+      "rhythm_accompaniment": [
+        "four on the floor",
+        "hi-hats"
+      ],
+      "structure_template": "edm_drop"
+    },
+    "bachata": {
+      "label": "Bachata",
+      "hint": "Guitarra requinto, bongó y güira.",
+      "bpm": "128",
+      "tempo_term": [
+        "groove"
+      ],
+      "mood": [
+        "romantic",
+        "bailable"
+      ],
+      "instruments": [
+        "electric guitar",
+        "bass guitar",
+        "güira",
+        "percussion"
+      ],
+      "vocal_style": [
+        "canto popular",
+        "melodic vocal"
+      ],
+      "production_notes": [
+        "clean mix"
+      ],
+      "rhythm_accompaniment": [
+        "bongos",
+        "guira"
+      ],
+      "structure_template": "pop_standard"
+    },
+    "rock": {
+      "label": "Rock",
+      "hint": "Guitarras, batería y energía.",
+      "bpm": "130",
+      "tempo_term": [
+        "driving",
+        "allegro"
+      ],
+      "mood": [
+        "energetic",
+        "raw"
+      ],
+      "instruments": [
+        "electric guitar",
+        "bass guitar",
+        "drums"
+      ],
+      "vocal_style": [
+        "raspy vocal",
+        "belting"
+      ],
+      "production_notes": [
+        "live band",
+        "crunchy guitars"
+      ],
+      "rhythm_accompaniment": [
+        "rock drums",
+        "power chords"
+      ],
+      "structure_template": "pop_standard"
+    },
+    "trap": {
+      "label": "Trap",
+      "hint": "Half-time, hi-hats rápidos y 808.",
+      "bpm": "140",
+      "tempo_term": [
+        "half-time",
+        "trap"
+      ],
+      "mood": [
+        "dark",
+        "barrio"
+      ],
+      "instruments": [
+        "808 drums",
+        "synth bass",
+        "synth pad"
+      ],
+      "vocal_style": [
+        "autotune",
+        "rap"
+      ],
+      "production_notes": [
+        "heavy bass",
+        "club mix"
+      ],
+      "rhythm_accompaniment": [
+        "808 bass",
+        "rolling hi-hats"
+      ],
+      "structure_template": "simple_verse_chorus"
+    },
+    "dance / edm": {
+      "label": "Dance / EDM",
+      "hint": "Build, drop y sintetizadores.",
+      "bpm": "128",
+      "tempo_term": [
+        "four on the floor",
+        "upbeat"
+      ],
+      "mood": [
+        "energetic",
+        "euphoric"
+      ],
+      "instruments": [
+        "synth lead",
+        "synth bass",
+        "drum machine"
+      ],
+      "vocal_style": [
+        "pop vocal",
+        "chopped vocal"
+      ],
+      "production_notes": [
+        "club mix",
+        "sidechain"
+      ],
+      "rhythm_accompaniment": [
+        "four on the floor",
+        "risers"
+      ],
+      "structure_template": "edm_drop"
+    },
+    "salsa": {
+      "label": "Salsa",
+      "hint": "Metales, piano montuno y clave.",
+      "bpm": "180",
+      "tempo_term": [
+        "clave",
+        "upbeat"
+      ],
+      "mood": [
+        "fiesta",
+        "bailable"
+      ],
+      "instruments": [
+        "brass",
+        "piano",
+        "congas",
+        "bass guitar"
+      ],
+      "vocal_style": [
+        "canto popular",
+        "coro"
+      ],
+      "production_notes": [
+        "live band"
+      ],
+      "rhythm_accompaniment": [
+        "piano montuno",
+        "congas",
+        "brass stabs"
+      ],
+      "structure_template": "pop_standard"
+    },
+    "drum and bass": {
+      "label": "Drum and bass",
+      "hint": "Breakbeats rápidos y sub-bajo.",
+      "bpm": "174",
+      "tempo_term": [
+        "breakbeat",
+        "fast"
+      ],
+      "mood": [
+        "energetic",
+        "dark"
+      ],
+      "instruments": [
+        "drum machine",
+        "synth bass",
+        "synth pad"
+      ],
+      "vocal_style": [
+        "ethereal vocal"
+      ],
+      "production_notes": [
+        "club mix"
+      ],
+      "rhythm_accompaniment": [
+        "breakbeat",
+        "sub bass"
+      ],
+      "structure_template": "edm_drop"
+    }
+  },
+  "style_palette": {
+    "atrx": "ATRX (argentine club reggaeton)",
+    "rkt": "RKT (argentine reggaeton-cumbia turreo)",
+    "cumbia": "tropical cumbia",
+    "cumbia popular argentina": "cumbia popular argentina (baile popular)",
+    "descontrol": "cumbia descontrol (argentine party anthem)",
+    "cumbia villera": "cumbia villera argentina",
+    "cumbia pop": "cumbia pop argentina",
+    "cumbia 420": "cumbia 420 (cumbia with trap and reggaeton)"
+  },
+  "structure_phrases": {
+    "pop_standard": "verse-chorus form with pre-chorus and bridge",
+    "simple_verse_chorus": "simple verse-chorus form",
+    "edm_drop": "build-and-drop structure",
+    "ballad": "verse-chorus ballad form with an emotional bridge",
+    "hook_only": "short hook-focused piece",
+    "pista_baile": "verse-chorus dance track with a descontrol bridge and final chorus"
+  },
+  "dynamic_phrases": {
+    "crescendo": "crescendo into a powerful chorus",
+    "increase intensity": "building intensity towards the chorus",
+    "starts quietly": "starts quietly and builds",
+    "drop": "with a big drop",
+    "fade out": "fades out at the end",
+    "intimate vocal": "intimate vocal delivery",
+    "drums fall away": "drums fall away in the bridge",
+    "full band": "full band energy",
+    "stripped back": "stripped back arrangement",
+    "party chant": "party chant chorus",
+    "call and response": "call and response vocals"
+  },
+  "structure_outlines": {
+    "pop_standard": [
+      "Intro",
+      "Verse",
+      "Pre-Chorus",
+      "Chorus",
+      "Verse",
+      "Chorus",
+      "Bridge",
+      "Chorus",
+      "Outro"
+    ],
+    "simple_verse_chorus": [
+      "Verse",
+      "Chorus",
+      "Verse",
+      "Chorus",
+      "Outro"
+    ],
+    "edm_drop": [
+      "Intro",
+      "Verse",
+      "Chorus",
+      "Bridge",
+      "Chorus",
+      "Outro"
+    ],
+    "ballad": [
+      "Intro",
+      "Verse",
+      "Chorus",
+      "Verse",
+      "Chorus",
+      "Bridge",
+      "Chorus",
+      "Outro"
+    ],
+    "hook_only": [
+      "Intro",
+      "Chorus"
+    ],
+    "pista_baile": [
+      "Intro",
+      "Verse",
+      "Chorus",
+      "Verse",
+      "Chorus",
+      "Bridge",
+      "Chorus"
+    ],
+    "auto": [
+      "Intro",
+      "Verse",
+      "Chorus",
+      "Verse",
+      "Chorus",
+      "Bridge",
+      "Outro"
+    ]
+  },
+  "language_names_en": {
+    "es": "Spanish",
+    "en": "English",
+    "pt": "Portuguese",
+    "fr": "French",
+    "de": "German",
+    "it": "Italian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "zh": "Chinese",
+    "ar": "Arabic",
+    "ru": "Russian"
+  }
+}
