@@ -1,5 +1,5 @@
 (function (global) {
-  var STORAGE_KEY = "compositor-suno-pages-session";
+  var STORAGE_KEY = "compositor-suno-pages-session-v2";
   var AUTH = {
     repo: "GabrielAlejandroArroyo/compositor-suno",
     owners: ["GabrielAlejandroArroyo"],
@@ -35,6 +35,7 @@
 
   function clearSession() {
     sessionStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem("compositor-suno-pages-session");
     sessionStorage.removeItem("compositor-suno-llm");
   }
 
@@ -171,7 +172,14 @@
       .catch(function () { return {}; })
       .then(function (config) {
         applyAuthConfig(config);
+        sessionStorage.removeItem("compositor-suno-pages-session");
         var session = loadSession();
+        if (!session) {
+          var here = window.location.pathname.split("/").pop() || "index.html";
+          var hash = window.location.hash || "";
+          window.location.replace("login.html?next=" + encodeURIComponent(here + hash));
+          return;
+        }
         var nav = document.getElementById("pages-auth-nav");
         if (nav) {
           nav.innerHTML = session
