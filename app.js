@@ -1,11 +1,7 @@
 (function () {
-  var KEY = "compositor-suno-llm";
-  var AUTH_KEY = "compositor-suno-auth";
   var OPTIONS = {};
   var TABLES = {};
-  var AUTH = {};
   var currentSuggestions = [];
-  var sessionUser = "";
 
   function splitCsv(text) {
     return (text || "")
@@ -275,66 +271,6 @@
     ];
   }
 
-  function llmConfig() {
-    var provider = val("llm_provider");
-    var key = val("llm_api_key").trim();
-    var model = val("llm_model").trim();
-    var base = provider === "groq" ? "https://api.groq.com/openai/v1" : "http://127.0.0.1:11434/v1";
-    return { provider: provider, key: key, model: model, base: base };
-  }
-
-  function isAuthed() {
-    return Boolean(sessionUser);
-  }
-
-  async function sha256Hex(text) {
-    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(function (b) {
-      return b.toString(16).padStart(2, "0");
-    }).join("");
-  }
-
-  function applyAuthUi() {
-    var loginBox = document.getElementById("auth-login");
-    var okBox = document.getElementById("auth-ok");
-    var llm = document.getElementById("sec-llm");
-    if (isAuthed()) {
-      loginBox.hidden = true;
-      okBox.hidden = false;
-      llm.hidden = false;
-      document.getElementById("auth-user-label").textContent = sessionUser;
-      loadLlm();
-    } else {
-      loginBox.hidden = false;
-      okBox.hidden = true;
-      llm.hidden = true;
-      setVal("llm_api_key", "");
-    }
-  }
-
-  function saveLlm() {
-    if (!isAuthed()) return;
-    if (!document.getElementById("llm_remember").checked) {
-      localStorage.removeItem(KEY);
-      return;
-    }
-    localStorage.setItem(KEY, JSON.stringify({
-      provider: val("llm_provider"),
-      key: val("llm_api_key"),
-      model: val("llm_model")
-    }));
-  }
-
-  function loadLlm() {
-    if (!isAuthed()) return;
-    try {
-      var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
-      if (saved.provider) setVal("llm_provider", saved.provider);
-      if (saved.key) setVal("llm_api_key", saved.key);
-      if (saved.model) setVal("llm_model", saved.model);
-    } catch (e) {}
-  }
-
   function applySuggestionSelection(form) {
     var picked = currentSuggestions.filter(function (item) {
       var cb = form.querySelector('input[name="genre_pick"][value="' + CSS.escape(item.genre) + '"]');
@@ -361,13 +297,11 @@
 
   Promise.all([
     fetch("data/options.json").then(function (r) { return r.json(); }),
-    fetch("data/profiles.json").then(function (r) { return r.json(); }),
-    fetch("data/auth.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
+    fetch("data/profiles.json").then(function (r) { return r.json(); })
   ]).then(function (pair) {
     OPTIONS = pair[0];
     TABLES = pair[1];
-    AUTH = pair[2] || {};
-    sessionUser = sessionStorage.getItem(AUTH_KEY) || "";
+    if (window.PagesAuth) window.PagesAuth.bootPage();
     var form = document.getElementById("workflow-form");
     renderGrid("grid-tempo_bpm", OPTIONS.tempo_bpm_presets, "tempo_bpm_pick", "Presets BPM");
     renderGrid("grid-language", OPTIONS.languages, "language_pick", "Idiomas");
@@ -376,35 +310,7 @@
     renderGrid("grid-exclude", OPTIONS.exclude_presets, "exclude_pick", "Excluir estilos");
     renderRadios("grid-vocal_gender", OPTIONS.vocal_genders, "vocal_gender");
     bindSync(form);
-    applyAuthUi();
     document.getElementById("language").dispatchEvent(new Event("input", { bubbles: true }));
-
-    document.getElementById("auth-login-btn").addEventListener("click", async function () {
-      var status = document.getElementById("auth-status");
-      if (!AUTH.password_sha256) {
-        status.textContent = "No hay contraseña publicada (está bien). Configurá APP_AUTH_PASSWORD en el .env local, regenerá docs/data/auth.json y republicá. La key Groq nunca va en ese archivo.";
-        return;
-      }
-      var user = val("auth_user").trim();
-      var password = val("auth_password");
-      var digest = await sha256Hex("compositor-suno|" + password);
-      if (digest !== AUTH.password_sha256) {
-        status.textContent = "Usuario o contraseña incorrectos.";
-        return;
-      }
-      sessionUser = user || "owner";
-      sessionStorage.setItem(AUTH_KEY, sessionUser);
-      setVal("auth_password", "");
-      applyAuthUi();
-      status.textContent = "Sesión iniciada. Ahora podés cargar la key Groq en este navegador.";
-    });
-    document.getElementById("auth-logout").addEventListener("click", function () {
-      sessionStorage.removeItem(AUTH_KEY);
-      sessionUser = "";
-      setVal("llm_api_key", "");
-      applyAuthUi();
-      document.getElementById("auth-status").textContent = "Sesión cerrada. La key no se muestra a visitas.";
-    });
 
     function showStep(n) {
       form.querySelectorAll(".workflow-step").forEach(function (section) {
@@ -467,52 +373,41 @@
     });
 
     document.getElementById("generate-lyrics").addEventListener("click", function () {
-      var button = this;
       var status = document.getElementById("lyrics-status");
-      var renew = document.getElementById("lyrics-renew-help");
-      renew.hidden = true;
-      if (!isAuthed()) {
-        status.textContent = "Iniciá sesión para usar el LLM. La clave Groq no es pública.";
+      if (!window.PagesAuth || !window.PagesAuth.isAuthed()) {
+        status.textContent = "Entrá con GitHub + QR para usar el LLM en esta página, o usá la app local.";
+        return;
+      }
+      var key = val("llm_api_key").trim();
+      var model = val("llm_model").trim();
+      if (!key || !model) {
+        status.textContent = "En parámetros secretos pegá tu API key y el modelo. La key del servidor no está en Pages.";
         return;
       }
       if (!val("lyrics_idea").trim()) {
-        status.textContent = "Escribí la idea o pedido para la letra antes de generar.";
+        status.textContent = "Escribí la idea antes de generar.";
         return;
       }
-      var cfg = llmConfig();
-      if (!cfg.model) {
-        status.textContent = "Elegí un modelo en la sección LLM.";
-        return;
-      }
-      if (cfg.provider === "groq" && !cfg.key) {
-        status.textContent = "Pegá tu API key de Groq. Queda solo en este navegador.";
-        return;
-      }
+      var button = this;
       button.disabled = true;
       status.textContent = "Generando letra…";
-      var headers = { "Content-Type": "application/json" };
-      if (cfg.key) headers.Authorization = "Bearer " + cfg.key;
-      fetch(cfg.base + "/chat/completions", {
+      fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
-        headers: headers,
-        body: JSON.stringify({ model: cfg.model, temperature: 0.8, messages: buildLlmMessages() })
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + key,
+        },
+        body: JSON.stringify({ model: model, temperature: 0.8, messages: buildLlmMessages() }),
       })
         .then(function (r) {
-          return r.json().then(function (data) { return { ok: r.ok, status: r.status, data: data }; });
+          return r.json().then(function (data) { return { ok: r.ok, data: data }; });
         })
         .then(function (result) {
-          if (result.status === 401) {
-            status.textContent = "La clave está vencida o no es válida.";
-            renew.hidden = false;
-            renew.innerHTML = "<h3>La clave está vencida</h3><ol><li>Entrá a <a href=\"https://console.groq.com/keys\" target=\"_blank\" rel=\"noopener\">console.groq.com/keys</a>.</li><li>Creá una API key nueva.</li><li>Pegala arriba. No se publica en GitHub.</li></ol>";
-            return;
-          }
           if (!result.ok) throw new Error((result.data && result.data.error && result.data.error.message) || "No se pudo generar la letra.");
           var text = result.data.choices && result.data.choices[0] && result.data.choices[0].message && result.data.choices[0].message.content;
           if (!text) throw new Error("El LLM no devolvió letra.");
           setVal("lyrics_block", text.trim());
           status.textContent = "Letra lista. Podés editarla.";
-          saveLlm();
         })
         .catch(function (err) { status.textContent = err.message; })
         .then(function () { button.disabled = false; });
@@ -539,42 +434,6 @@
       });
     });
 
-    document.getElementById("llm-test").addEventListener("click", function () {
-      var status = document.getElementById("llm-status");
-      var cfg = llmConfig();
-      var headers = { Accept: "application/json" };
-      if (cfg.key) headers.Authorization = "Bearer " + cfg.key;
-      status.textContent = "Consultando modelos…";
-      fetch(cfg.base + "/models", { headers: headers })
-        .then(function (r) {
-          return r.json().then(function (data) { return { ok: r.ok, status: r.status, data: data }; });
-        })
-        .then(function (result) {
-          if (result.status === 401) {
-            status.textContent = "Clave vencida. Renovala en console.groq.com/keys.";
-            document.getElementById("llm-renew").hidden = false;
-            document.getElementById("llm-renew").innerHTML = "<ol><li>Creá una key en <a href=\"https://console.groq.com/keys\" target=\"_blank\" rel=\"noopener\">console.groq.com/keys</a>.</li><li>Pegala acá. No se publica.</li></ol>";
-            return;
-          }
-          if (!result.ok) throw new Error("No se pudieron listar los modelos.");
-          var names = (result.data.data || result.data.models || []).map(function (item) {
-            return typeof item === "string" ? item : (item.id || item.name || "");
-          }).filter(Boolean);
-          if (names.length && !val("llm_model")) setVal("llm_model", names[0]);
-          status.textContent = names.length + " modelos. Elegí uno y pegalo en Modelo.";
-          saveLlm();
-        })
-        .catch(function (err) { status.textContent = err.message; });
-    });
-
-    document.getElementById("llm-forget").addEventListener("click", function () {
-      localStorage.removeItem(KEY);
-      setVal("llm_api_key", "");
-      document.getElementById("llm-status").textContent = "Clave olvidada en este navegador.";
-    });
-    ["llm_provider", "llm_api_key", "llm_model", "llm_remember"].forEach(function (id) {
-      document.getElementById(id).addEventListener("change", saveLlm);
-    });
   }).catch(function () {
     document.body.insertAdjacentHTML("beforeend", '<p class="card">No se pudieron cargar data/options.json. Publicá la carpeta docs/ completa.</p>');
   });

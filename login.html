@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doble autenticación GitHub — Compositor Suno</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <strong>Compositor Suno</strong>
+      <span class="muted"> — GitHub Pages</span>
+    </div>
+    <nav>
+      <a href="index.html">Workflow</a>
+      <a href="https://suno.com/create" target="_blank" rel="noopener">Abrir Suno</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Doble autenticación con GitHub</h1>
+    <p class="muted">
+      Escaneá el QR, entrá a GitHub (con tu 2FA) y comprobá que tenés acceso al repo privado.
+      Las API keys del servidor <strong>no viajan a Pages</strong>. Acá solo se desbloquean los parámetros secretos de esta página.
+    </p>
+    <p id="auth-error" class="badge badge-warn" hidden></p>
+
+    <section class="card qr-card" id="auth-box">
+      <h2>1. QR — login de GitHub (2FA)</h2>
+      <p class="muted">Escaneá con el celular o abrí el enlace. GitHub te va a pedir tu segundo factor.</p>
+      <div class="qr-box">
+        <img id="qr-login" src="data/qr-github-login.png" alt="QR para iniciar sesión en GitHub" width="240" height="240">
+      </div>
+      <p><a class="btn" id="open-github-login" href="https://github.com/login" target="_blank" rel="noopener">Abrir login de GitHub</a></p>
+
+      <h2>2. QR — token del repo</h2>
+      <p class="muted">
+        Creá un token clásico con permiso <code>repo</code> (solo para comprobar
+        <code id="repo-label">el repo privado</code>). GitHub exige 2FA para emitirlo.
+        El token se usa una vez en este navegador y no se guarda en GitHub Pages.
+      </p>
+      <div class="qr-box">
+        <img id="qr-token" src="data/qr-github-token.png" alt="QR para crear el token de GitHub" width="240" height="240">
+      </div>
+      <p><a class="btn btn-secondary" id="open-github-token" href="https://github.com/settings/tokens/new?description=compositor-suno-pages&amp;scopes=repo" target="_blank" rel="noopener">Crear token en GitHub</a></p>
+
+      <form id="github-token-form" autocomplete="off">
+        <label for="github_token">Pegá el token</label>
+        <input type="password" id="github_token" name="token" autocomplete="off" spellcheck="false" required>
+        <div class="actions">
+          <button type="submit" class="btn" id="verify-github">Verificar repo y avanzar</button>
+          <span class="muted" id="auth-status"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" id="auth-ok" hidden>
+      <p>Sesión de Pages: <strong id="auth-user"></strong>. Repo verificado.</p>
+      <div class="actions">
+        <a class="btn" href="index.html#sec-secrets">Ir a los parámetros secretos</a>
+        <button type="button" class="btn btn-secondary" id="auth-logout">Cerrar sesión</button>
+      </div>
+    </section>
+  </main>
+  <script src="pages_auth.js"></script>
+  <script>
+    PagesAuth.bootLogin();
+  </script>
+</body>
+</html>

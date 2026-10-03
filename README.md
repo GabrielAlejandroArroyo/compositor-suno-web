@@ -5,4 +5,5 @@ No contiene claves ni el código FastAPI.
 
 Sitio: https://gabrielalejandroarroyo.github.io/compositor-suno-web/
 
-La API key del LLM (si la usás) se pega en el navegador y queda solo ahí.
+Autenticación en Pages: QR + login de GitHub (2FA) y comprobación del repo privado.
+Las API keys del servidor no se publican. El LLM privilegiado del `.env` corre en FastAPI local.

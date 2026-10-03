@@ -13,59 +13,48 @@
       <span class="muted"> — versión web (GitHub Pages)</span>
     </div>
     <nav>
+      <a href="login.html">Doble autenticación</a>
       <a href="https://suno.com/create" target="_blank" rel="noopener">Abrir Suno</a>
+      <span id="pages-auth-nav"></span>
     </nav>
   </header>
   <main>
     <h1>Workflow: del ritmo a la letra y al prompt de Suno</h1>
     <p class="muted">
-      Elegí BPM y estilo, el sistema propone géneros e instrumentos, escribí la idea, el LLM arma la letra
+      Elegí BPM y estilo, el sistema propone géneros e instrumentos, escribís la idea o la letra a mano
       y al final copiás Style + Lyrics para pegar en
       <a href="https://suno.com/create" target="_blank" rel="noopener">suno.com/create</a>.
-      La clave del LLM queda solo en tu navegador: no se sube a GitHub.
+      Esta página pública <strong>no guarda ni pide API keys</strong>.
     </p>
 
     <section class="card" id="sec-auth">
-      <h2>Acceso al LLM</h2>
-      <p class="muted">La API key de Groq (<code>gsk_</code>) no se publica. Solo alguien autenticado puede cargarla en <em>este</em> navegador o usarla. El resto del sitio (estilos y copy de Suno) es público.</p>
-      <div id="auth-login">
-        <label for="auth_user">Usuario</label>
-        <input type="text" id="auth_user" autocomplete="username">
-        <label for="auth_password">Contraseña</label>
-        <input type="password" id="auth_password" autocomplete="current-password">
-        <div class="actions">
-          <button type="button" class="btn" id="auth-login-btn">Iniciar sesión</button>
-          <span class="muted" id="auth-status"></span>
-        </div>
-      </div>
-      <div id="auth-ok" hidden>
-        <p>Sesión: <strong id="auth-user-label"></strong>. La clave Groq queda solo en este navegador.</p>
-        <button type="button" class="btn btn-secondary" id="auth-logout">Cerrar sesión</button>
-      </div>
+      <h2>Doble autenticación GitHub + QR</h2>
+      <p class="muted">
+        Para ver los parámetros secretos de esta página: escaneá el QR, completá el login de GitHub
+        (con 2FA) y comprobá el acceso al repo privado. Las API keys del servidor no se publican.
+      </p>
+      <p><a class="btn" href="login.html">Abrir login con QR</a></p>
     </section>
 
-    <section class="card" id="sec-llm" hidden>
-      <h2>LLM para la letra</h2>
-      <p class="muted">Pegá la key acá. Se guarda en <code>localStorage</code> de este navegador, no en GitHub.</p>
-      <label for="llm_provider">Proveedor</label>
-      <select id="llm_provider">
-        <option value="groq">Groq</option>
-        <option value="ollama">Ollama (local)</option>
-      </select>
-      <label for="llm_api_key">API key (Groq empieza con gsk_)</label>
-      <input type="password" id="llm_api_key" autocomplete="off" placeholder="gsk_...">
+    <section class="card" id="sec-secrets-locked">
+      <h2>Parámetros secretos</h2>
+      <p class="muted">Bloqueados. Entrá con GitHub + QR para desbloquearlos.</p>
+      <a class="btn" href="login.html?next=index.html%23sec-secrets">Autenticarme</a>
+    </section>
+
+    <section class="card" id="sec-secrets" hidden>
+      <h2>Parámetros secretos</h2>
+      <p class="muted">
+        Repo verificado en este navegador. Acá podés usar opciones privilegiadas de la página.
+        La key Groq del servidor sigue solo en FastAPI local
+        (<a href="http://127.0.0.1:8000/auth/login">127.0.0.1:8000/auth/login</a>).
+      </p>
+      <label for="secret_notes">Notas privadas de composición (solo esta pestaña)</label>
+      <textarea id="secret_notes" rows="3" placeholder="Referencias, nombres, ideas que no querés dejar a la vista pública."></textarea>
+      <label for="llm_api_key">API key propia para esta pestaña (opcional, no se sube a GitHub)</label>
+      <input type="password" id="llm_api_key" autocomplete="off">
       <label for="llm_model">Modelo</label>
       <input type="text" id="llm_model" placeholder="llama-3.3-70b-versatile">
-      <label>
-        <input type="checkbox" id="llm_remember" checked>
-        Recordar clave en este navegador
-      </label>
-      <div class="actions">
-        <button type="button" class="btn btn-secondary" id="llm-test">Ver modelos</button>
-        <button type="button" class="btn btn-secondary" id="llm-forget">Olvidar clave</button>
-        <span class="muted" id="llm-status"></span>
-      </div>
-      <article class="tips" id="llm-renew" hidden></article>
     </section>
 
     <div class="progress workflow-progress">
@@ -151,7 +140,7 @@
         <textarea id="lyrics_idea" rows="4" placeholder="Ej: una cumbia para la previa, estribillo corto para cantar a los gritos."></textarea>
         <div class="actions">
           <button type="button" class="btn btn-secondary" id="build-llm-prompt">Ver el prompt que recibe el LLM</button>
-          <button type="button" class="btn" id="generate-lyrics">Generar letra con el LLM</button>
+          <button type="button" class="btn" id="generate-lyrics">Generar letra</button>
           <span class="muted" id="lyrics-status"></span>
         </div>
         <article class="tips" id="lyrics-renew-help" hidden></article>
@@ -204,6 +193,7 @@
       </section>
     </form>
   </main>
+  <script src="pages_auth.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
