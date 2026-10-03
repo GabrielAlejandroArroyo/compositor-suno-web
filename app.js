@@ -1,8 +1,11 @@
 (function () {
   var KEY = "compositor-suno-llm";
+  var AUTH_KEY = "compositor-suno-auth";
   var OPTIONS = {};
   var TABLES = {};
+  var AUTH = {};
   var currentSuggestions = [];
+  var sessionUser = "";
 
   function splitCsv(text) {
     return (text || "")
@@ -280,7 +283,37 @@
     return { provider: provider, key: key, model: model, base: base };
   }
 
+  function isAuthed() {
+    return Boolean(sessionUser);
+  }
+
+  async function sha256Hex(text) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(function (b) {
+      return b.toString(16).padStart(2, "0");
+    }).join("");
+  }
+
+  function applyAuthUi() {
+    var loginBox = document.getElementById("auth-login");
+    var okBox = document.getElementById("auth-ok");
+    var llm = document.getElementById("sec-llm");
+    if (isAuthed()) {
+      loginBox.hidden = true;
+      okBox.hidden = false;
+      llm.hidden = false;
+      document.getElementById("auth-user-label").textContent = sessionUser;
+      loadLlm();
+    } else {
+      loginBox.hidden = false;
+      okBox.hidden = true;
+      llm.hidden = true;
+      setVal("llm_api_key", "");
+    }
+  }
+
   function saveLlm() {
+    if (!isAuthed()) return;
     if (!document.getElementById("llm_remember").checked) {
       localStorage.removeItem(KEY);
       return;
@@ -293,6 +326,7 @@
   }
 
   function loadLlm() {
+    if (!isAuthed()) return;
     try {
       var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
       if (saved.provider) setVal("llm_provider", saved.provider);
@@ -327,10 +361,13 @@
 
   Promise.all([
     fetch("data/options.json").then(function (r) { return r.json(); }),
-    fetch("data/profiles.json").then(function (r) { return r.json(); })
+    fetch("data/profiles.json").then(function (r) { return r.json(); }),
+    fetch("data/auth.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
   ]).then(function (pair) {
     OPTIONS = pair[0];
     TABLES = pair[1];
+    AUTH = pair[2] || {};
+    sessionUser = sessionStorage.getItem(AUTH_KEY) || "";
     var form = document.getElementById("workflow-form");
     renderGrid("grid-tempo_bpm", OPTIONS.tempo_bpm_presets, "tempo_bpm_pick", "Presets BPM");
     renderGrid("grid-language", OPTIONS.languages, "language_pick", "Idiomas");
@@ -339,8 +376,35 @@
     renderGrid("grid-exclude", OPTIONS.exclude_presets, "exclude_pick", "Excluir estilos");
     renderRadios("grid-vocal_gender", OPTIONS.vocal_genders, "vocal_gender");
     bindSync(form);
-    loadLlm();
+    applyAuthUi();
     document.getElementById("language").dispatchEvent(new Event("input", { bubbles: true }));
+
+    document.getElementById("auth-login-btn").addEventListener("click", async function () {
+      var status = document.getElementById("auth-status");
+      if (!AUTH.password_sha256) {
+        status.textContent = "No hay contraseña publicada (está bien). Configurá APP_AUTH_PASSWORD en el .env local, regenerá docs/data/auth.json y republicá. La key Groq nunca va en ese archivo.";
+        return;
+      }
+      var user = val("auth_user").trim();
+      var password = val("auth_password");
+      var digest = await sha256Hex("compositor-suno|" + password);
+      if (digest !== AUTH.password_sha256) {
+        status.textContent = "Usuario o contraseña incorrectos.";
+        return;
+      }
+      sessionUser = user || "owner";
+      sessionStorage.setItem(AUTH_KEY, sessionUser);
+      setVal("auth_password", "");
+      applyAuthUi();
+      status.textContent = "Sesión iniciada. Ahora podés cargar la key Groq en este navegador.";
+    });
+    document.getElementById("auth-logout").addEventListener("click", function () {
+      sessionStorage.removeItem(AUTH_KEY);
+      sessionUser = "";
+      setVal("llm_api_key", "");
+      applyAuthUi();
+      document.getElementById("auth-status").textContent = "Sesión cerrada. La key no se muestra a visitas.";
+    });
 
     function showStep(n) {
       form.querySelectorAll(".workflow-step").forEach(function (section) {
@@ -407,6 +471,10 @@
       var status = document.getElementById("lyrics-status");
       var renew = document.getElementById("lyrics-renew-help");
       renew.hidden = true;
+      if (!isAuthed()) {
+        status.textContent = "Iniciá sesión para usar el LLM. La clave Groq no es pública.";
+        return;
+      }
       if (!val("lyrics_idea").trim()) {
         status.textContent = "Escribí la idea o pedido para la letra antes de generar.";
         return;

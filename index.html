@@ -25,9 +25,28 @@
       La clave del LLM queda solo en tu navegador: no se sube a GitHub.
     </p>
 
-    <section class="card" id="sec-llm">
+    <section class="card" id="sec-auth">
+      <h2>Acceso al LLM</h2>
+      <p class="muted">La API key de Groq (<code>gsk_</code>) no se publica. Solo alguien autenticado puede cargarla en <em>este</em> navegador o usarla. El resto del sitio (estilos y copy de Suno) es público.</p>
+      <div id="auth-login">
+        <label for="auth_user">Usuario</label>
+        <input type="text" id="auth_user" autocomplete="username">
+        <label for="auth_password">Contraseña</label>
+        <input type="password" id="auth_password" autocomplete="current-password">
+        <div class="actions">
+          <button type="button" class="btn" id="auth-login-btn">Iniciar sesión</button>
+          <span class="muted" id="auth-status"></span>
+        </div>
+      </div>
+      <div id="auth-ok" hidden>
+        <p>Sesión: <strong id="auth-user-label"></strong>. La clave Groq queda solo en este navegador.</p>
+        <button type="button" class="btn btn-secondary" id="auth-logout">Cerrar sesión</button>
+      </div>
+    </section>
+
+    <section class="card" id="sec-llm" hidden>
       <h2>LLM para la letra</h2>
-      <p class="muted">La API key se guarda opcionalmente en <code>localStorage</code> de este navegador. Nunca viaja a GitHub.</p>
+      <p class="muted">Pegá la key acá. Se guarda en <code>localStorage</code> de este navegador, no en GitHub.</p>
       <label for="llm_provider">Proveedor</label>
       <select id="llm_provider">
         <option value="groq">Groq</option>
