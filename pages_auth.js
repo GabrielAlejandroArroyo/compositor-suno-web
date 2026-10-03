@@ -1,5 +1,23 @@
 (function (global) {
   var STORAGE_KEY = "compositor-suno-pages-session-v2";
+  try {
+    sessionStorage.removeItem("compositor-suno-pages-session");
+  } catch (err) {}
+  (function forceLogin() {
+    var page = (window.location.pathname.split("/").pop() || "index.html").split("?")[0];
+    if (page === "login.html") return;
+    var ok = false;
+    try {
+      var raw = sessionStorage.getItem(STORAGE_KEY);
+      var data = raw ? JSON.parse(raw) : null;
+      ok = Boolean(data && data.login && data.repo_ok);
+    } catch (err) {
+      ok = false;
+    }
+    if (!ok) {
+      window.location.replace("login.html?next=" + encodeURIComponent(page + (window.location.hash || "")));
+    }
+  })();
   var AUTH = {
     repo: "GabrielAlejandroArroyo/compositor-suno",
     owners: ["GabrielAlejandroArroyo"],
