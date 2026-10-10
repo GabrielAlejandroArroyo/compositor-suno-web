@@ -1,69 +1,70 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="auth-pending">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Compositor Suno — Workflow</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="workflow-ui.css?v=4">
+  <script>
+    (function () {
+      var STORAGE_KEY = "compositor-suno-pages-session-v2";
+      var page = (window.location.pathname.split("/").pop() || "index.html").split("?")[0];
+      if (page === "login.html") return;
+      var ok = false;
+      try {
+        var raw = sessionStorage.getItem(STORAGE_KEY);
+        var data = raw ? JSON.parse(raw) : null;
+        ok = Boolean(data && data.login && data.repo_ok);
+      } catch (err) {
+        ok = false;
+      }
+      if (!ok) {
+        window.location.replace("login.html?next=" + encodeURIComponent(page + (window.location.hash || "")));
+      }
+    })();
+  </script>
 </head>
 <body>
+  <div id="app-shell">
   <header class="site-header">
     <div>
       <strong>Compositor Suno</strong>
-      <span class="muted"> — versión web (GitHub Pages)</span>
+      <span class="muted site-header-tagline"> — versión web (GitHub Pages)</span>
     </div>
     <nav>
-      <a href="login.html">Doble autenticación</a>
       <a href="https://suno.com/create" target="_blank" rel="noopener">Abrir Suno</a>
       <span id="pages-auth-nav"></span>
+      <button type="button" class="gear-btn" id="open-settings" aria-label="Configuración del sistema" title="Configuración">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.03 7.03 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 2h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.59.24-1.13.55-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94L2.83 14.52a.5.5 0 0 0-.12.64l1.92 3.32c.14.24.43.34.6.22l2.39-.96c.5.39 1.04.7 1.63.94l.36 2.54c.05.24.25.42.49.42h3.8c.24 0 .44-.18.49-.42l.36-2.54c.59-.24 1.13-.55 1.63-.94l2.39.96c.25.1.46 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/>
+        </svg>
+      </button>
     </nav>
   </header>
   <main>
-    <h1>Workflow: del ritmo a la letra y al prompt de Suno</h1>
-    <p class="muted">
-      Elegí BPM y estilo, el sistema propone géneros e instrumentos, escribís la idea o la letra a mano
-      y al final copiás Style + Lyrics para pegar en
-      <a href="https://suno.com/create" target="_blank" rel="noopener">suno.com/create</a>.
-      Esta página pública <strong>no guarda ni pide API keys</strong>.
-    </p>
+    <div class="workflow-shell">
+      <div class="workflow-hero">
+        <h1>Workflow Suno</h1>
+        <p class="muted workflow-hero-intro">Del ritmo a Style + Lyrics en cinco pasos.</p>
+        <details class="workflow-hero-more">
+          <summary>Más info</summary>
+          <p class="muted">
+            Elegí BPM y estilo, el sistema propone géneros e instrumentos, escribís la idea o la letra a mano
+            y al final copiás Style + Lyrics para pegar en
+            <a href="https://suno.com/create" target="_blank" rel="noopener">suno.com/create</a>.
+            Autenticación y API key van en <strong>Configuración</strong> (icono de engranaje).
+          </p>
+        </details>
+      </div>
 
-    <section class="card" id="sec-auth">
-      <h2>Doble autenticación GitHub + QR</h2>
-      <p class="muted">
-        Para ver los parámetros secretos de esta página: escaneá el QR, completá el login de GitHub
-        (con 2FA) y comprobá el acceso al repo privado. Las API keys del servidor no se publican.
-      </p>
-      <p><a class="btn" href="login.html">Abrir login con QR</a></p>
-    </section>
-
-    <section class="card" id="sec-secrets-locked">
-      <h2>Parámetros secretos</h2>
-      <p class="muted">Bloqueados. Entrá con GitHub + QR para desbloquearlos.</p>
-      <a class="btn" href="login.html?next=index.html%23sec-secrets">Autenticarme</a>
-    </section>
-
-    <section class="card" id="sec-secrets" hidden>
-      <h2>Parámetros secretos</h2>
-      <p class="muted">
-        Repo verificado en este navegador. Acá podés usar opciones privilegiadas de la página.
-        La key Groq del servidor sigue solo en FastAPI local
-        (<a href="http://127.0.0.1:8000/auth/login">127.0.0.1:8000/auth/login</a>).
-      </p>
-      <label for="secret_notes">Notas privadas de composición (solo esta pestaña)</label>
-      <textarea id="secret_notes" rows="3" placeholder="Referencias, nombres, ideas que no querés dejar a la vista pública."></textarea>
-      <label for="llm_api_key">API key propia para esta pestaña (opcional, no se sube a GitHub)</label>
-      <input type="password" id="llm_api_key" autocomplete="off">
-      <label for="llm_model">Modelo</label>
-      <input type="text" id="llm_model" placeholder="llama-3.3-70b-versatile">
-    </section>
-
-    <div class="progress workflow-progress">
-      <span class="active" data-step-pill="1">1. Ritmo y estilo</span>
-      <span data-step-pill="2">2. Estilos sugeridos</span>
-      <span data-step-pill="3">3. Instrumentos y voz</span>
-      <span data-step-pill="4">4. Idea → letra</span>
-      <span data-step-pill="5">5. Copiar Style + Lyrics</span>
-    </div>
+      <nav class="workflow-stepper" aria-label="Pasos del workflow">
+        <button type="button" class="workflow-step-pill is-active" data-step-pill="1" aria-current="step"><span class="pill-num">1</span>Ritmo</button>
+        <button type="button" class="workflow-step-pill" data-step-pill="2" disabled><span class="pill-num">2</span>Estilos</button>
+        <button type="button" class="workflow-step-pill" data-step-pill="3" disabled><span class="pill-num">3</span>Instrumentos</button>
+        <button type="button" class="workflow-step-pill" data-step-pill="4" disabled><span class="pill-num">4</span>Letra</button>
+        <button type="button" class="workflow-step-pill" data-step-pill="5" disabled><span class="pill-num">5</span>Copiar</button>
+      </nav>
 
     <form id="workflow-form">
       <input type="hidden" id="suno_model" value="v6">
@@ -153,6 +154,45 @@
         </details>
         <label for="lyrics_block">Letra (editable, se pega en Suno)</label>
         <textarea id="lyrics_block" rows="14" placeholder="[Verse]&#10;...&#10;&#10;[Chorus]&#10;..."></textarea>
+
+        <details class="lyrics-coach" id="lyrics-coach">
+          <summary>Mejorar con IA (conversación interactiva)</summary>
+          <div class="lyrics-coach-body">
+            <p class="muted lyrics-coach-hint" id="lyrics-coach-hint">
+              La IA lee tu letra y te pregunta qué querés pulir. Necesitás texto en el campo de arriba.
+            </p>
+            <div class="lyrics-coach-thread" id="lyrics-coach-thread" aria-live="polite"></div>
+            <div class="lyrics-coach-chips" id="lyrics-coach-chips"></div>
+            <label for="lyrics-coach-input">Qué querés mejorar</label>
+            <textarea id="lyrics-coach-input" rows="2" placeholder="Ej: estribillo más corto y pegadizo para cantar en coro"></textarea>
+            <div class="actions lyrics-coach-actions">
+              <button type="button" class="btn btn-secondary" id="lyrics-coach-send">Enviar</button>
+              <button type="button" class="btn" id="lyrics-coach-revise">Generar versión mejorada</button>
+              <button type="button" class="btn btn-secondary" id="lyrics-coach-reset">Reiniciar conversación</button>
+              <button type="button" class="btn btn-secondary" id="lyrics-coach-retry" hidden>Reintentar conexión</button>
+              <span class="muted" id="lyrics-coach-status"></span>
+            </div>
+            <div class="lyrics-coach-compare" id="lyrics-coach-compare" hidden>
+              <h3>Comparar letra completa</h3>
+              <div class="lyrics-coach-compare-grid">
+                <div class="lyrics-coach-compare-col">
+                  <h4>Antes del último cambio</h4>
+                  <pre id="lyrics-coach-compare-before" class="preview-text"></pre>
+                </div>
+                <div class="lyrics-coach-compare-col">
+                  <h4>Después del cambio</h4>
+                  <pre id="lyrics-coach-compare-after" class="preview-text"></pre>
+                </div>
+              </div>
+              <div class="actions lyrics-coach-compare-actions">
+                <button type="button" class="btn" id="lyrics-coach-apply">Usar la nueva letra</button>
+                <button type="button" class="btn btn-secondary" id="lyrics-coach-keep-old">Quedarme con la anterior</button>
+                <button type="button" class="btn btn-secondary" id="lyrics-coach-dismiss-preview">Seguir conversando</button>
+              </div>
+            </div>
+          </div>
+        </details>
+
         <div class="actions">
           <button type="button" class="btn" data-next="5">Seguir: copiar Style + Lyrics</button>
           <button type="button" class="btn btn-secondary" data-prev="3">Volver</button>
@@ -192,8 +232,57 @@
         </div>
       </section>
     </form>
+    </div>
+
+    <div class="workflow-nav-mobile" id="workflow-nav-mobile">
+      <button type="button" class="btn btn-secondary" data-prev-mobile id="workflow-prev-mobile" disabled>Anterior</button>
+      <span id="workflow-step-label">Paso 1 de 5</span>
+      <button type="button" class="btn" data-next-mobile id="workflow-next-mobile">Siguiente</button>
+    </div>
   </main>
-  <script src="pages_auth.js?v=2"></script>
-  <script src="app.js?v=2"></script>
+
+  <div id="settings-overlay" class="settings-overlay" hidden>
+    <aside class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <header class="settings-panel-head">
+        <h2 id="settings-title">Configuración del sistema</h2>
+        <button type="button" class="icon-close" id="close-settings" aria-label="Cerrar configuración">×</button>
+      </header>
+
+      <section class="card" id="sec-auth">
+        <h2>Doble autenticación GitHub + QR</h2>
+        <p class="muted">
+          Para ver los parámetros secretos de esta página: escaneá el QR, completá el login de GitHub
+          (con 2FA) y comprobá el acceso al repo privado. Las API keys del servidor no se publican.
+        </p>
+        <p><a class="btn" href="login.html?next=index.html%23configuracion">Abrir login con QR</a></p>
+      </section>
+
+      <section class="card" id="sec-secrets-locked">
+        <h2>Parámetros secretos</h2>
+        <p class="muted">Bloqueados. Entrá con GitHub + QR para desbloquearlos.</p>
+        <a class="btn" href="login.html?next=index.html%23configuracion">Autenticarme</a>
+      </section>
+
+      <section class="card" id="sec-secrets" hidden>
+        <h2>Parámetros secretos</h2>
+        <p class="muted">
+          Repo verificado en este navegador. Acá podés usar opciones privilegiadas de la página.
+          La key Groq del servidor sigue solo en FastAPI local
+          (<a href="http://127.0.0.1:8000/auth/login">127.0.0.1:8000/auth/login</a>).
+        </p>
+        <label for="secret_notes">Notas privadas de composición (solo esta pestaña)</label>
+        <textarea id="secret_notes" rows="3" placeholder="Referencias, nombres, ideas que no querés dejar a la vista pública."></textarea>
+        <label for="llm_api_key">API key propia para esta pestaña (opcional, no se sube a GitHub)</label>
+        <input type="password" id="llm_api_key" autocomplete="off">
+        <label for="llm_model">Modelo</label>
+        <input type="text" id="llm_model" placeholder="llama-3.3-70b-versatile">
+      </section>
+    </aside>
+  </div>
+  </div>
+
+  <script src="pages_auth.js?v=5"></script>
+  <script src="lyrics-coach.js?v=3"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

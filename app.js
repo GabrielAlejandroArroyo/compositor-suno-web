@@ -295,13 +295,14 @@
     if (vocalField) vocalField.dispatchEvent(new Event("input", { bubbles: true }));
   }
 
-  Promise.all([
-    fetch("data/options.json").then(function (r) { return r.json(); }),
-    fetch("data/profiles.json").then(function (r) { return r.json(); })
-  ]).then(function (pair) {
+  function bootWorkflow() {
+    if (!window.PagesAuth || !window.PagesAuth.isAuthed()) return;
+    Promise.all([
+      fetch("data/options.json").then(function (r) { return r.json(); }),
+      fetch("data/profiles.json").then(function (r) { return r.json(); })
+    ]).then(function (pair) {
     OPTIONS = pair[0];
     TABLES = pair[1];
-    if (window.PagesAuth) window.PagesAuth.bootPage();
     var form = document.getElementById("workflow-form");
     renderGrid("grid-tempo_bpm", OPTIONS.tempo_bpm_presets, "tempo_bpm_pick", "Presets BPM");
     renderGrid("grid-language", OPTIONS.languages, "language_pick", "Idiomas");
@@ -312,13 +313,54 @@
     bindSync(form);
     document.getElementById("language").dispatchEvent(new Event("input", { bubbles: true }));
 
+    // keep in sync with app/static/workflow.js (showStep / nav)
+    var workflowTotalSteps = 5;
+    var maxStepVisited = 1;
+    var currentStep = 1;
+    var pills = Array.prototype.slice.call(document.querySelectorAll(".workflow-step-pill[data-step-pill]"));
+
+    function updateWorkflowNav(n) {
+      var label = document.getElementById("workflow-step-label");
+      var prevMobile = document.querySelector("[data-prev-mobile]");
+      var nextMobile = document.querySelector("[data-next-mobile]");
+      if (label) label.textContent = "Paso " + n + " de " + workflowTotalSteps;
+      if (prevMobile) prevMobile.disabled = n <= 1;
+      if (nextMobile) nextMobile.disabled = n >= workflowTotalSteps;
+    }
+
+    function updateWorkflowPills(n) {
+      pills.forEach(function (pill) {
+        var step = Number(pill.getAttribute("data-step-pill"));
+        pill.classList.remove("is-active", "is-done", "active");
+        if (step === n) {
+          pill.classList.add("is-active");
+          pill.setAttribute("aria-current", "step");
+        } else {
+          pill.removeAttribute("aria-current");
+        }
+        if (step < n) pill.classList.add("is-done");
+        pill.disabled = step > maxStepVisited;
+      });
+    }
+
     function showStep(n) {
+      if (n < 1 || n > workflowTotalSteps) return;
+      currentStep = n;
+      if (n > maxStepVisited) maxStepVisited = n;
       form.querySelectorAll(".workflow-step").forEach(function (section) {
-        section.hidden = Number(section.getAttribute("data-step")) > n;
+        section.hidden = Number(section.getAttribute("data-step")) !== n;
       });
-      document.querySelectorAll("[data-step-pill]").forEach(function (pill) {
-        pill.classList.toggle("active", Number(pill.getAttribute("data-step-pill")) === n);
-      });
+      updateWorkflowPills(n);
+      updateWorkflowNav(n);
+      var target = form.querySelector('.workflow-step[data-step="' + n + '"]');
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        var heading = target.querySelector("h2");
+        if (heading) {
+          heading.setAttribute("tabindex", "-1");
+          heading.focus({ preventScroll: true });
+        }
+      }
       if (n === 5) buildBlocks();
     }
 
@@ -328,6 +370,21 @@
     form.querySelectorAll("[data-prev]").forEach(function (btn) {
       btn.addEventListener("click", function () { showStep(Number(btn.getAttribute("data-prev"))); });
     });
+    pills.forEach(function (pill) {
+      pill.addEventListener("click", function () {
+        var step = Number(pill.getAttribute("data-step-pill"));
+        if (step <= maxStepVisited) showStep(step);
+      });
+    });
+    var prevMobile = document.querySelector("[data-prev-mobile]");
+    var nextMobile = document.querySelector("[data-next-mobile]");
+    if (prevMobile) {
+      prevMobile.addEventListener("click", function () { showStep(currentStep - 1); });
+    }
+    if (nextMobile) {
+      nextMobile.addEventListener("click", function () { showStep(currentStep + 1); });
+    }
+    showStep(1);
 
     document.getElementById("suggest-styles").addEventListener("click", function () {
       var status = document.getElementById("suggest-status");
@@ -381,7 +438,8 @@
       var key = val("llm_api_key").trim();
       var model = val("llm_model").trim();
       if (!key || !model) {
-        status.textContent = "En parámetros secretos pegá tu API key y el modelo. La key del servidor no está en Pages.";
+        status.textContent = "En Configuración (engranaje) pegá tu API key y el modelo. La key del servidor no está en Pages.";
+        if (window.PagesAuth && window.PagesAuth.openSettings) window.PagesAuth.openSettings();
         return;
       }
       if (!val("lyrics_idea").trim()) {
@@ -434,7 +492,83 @@
       });
     });
 
-  }).catch(function () {
-    document.body.insertAdjacentHTML("beforeend", '<p class="card">No se pudieron cargar data/options.json. Publicá la carpeta docs/ completa.</p>');
-  });
+    function buildCoachContextBlock(lyrics) {
+      // keep in sync with app/services/lyrics_coach.py build_coach_context_block
+      var idea = val("lyrics_idea").trim() || "(sin idea original registrada)";
+      var tempo = joinUnique([val("tempo_term"), val("rhythm_accompaniment"), val("tempo_bpm")].filter(Boolean));
+      return (
+        "Contexto del compositor:\n" +
+        "- Idea original: " + idea + "\n" +
+        "- Idioma(s): " + val("language") + "\n" +
+        "- Género: " + (val("genre") || "libre") + "\n" +
+        "- Mood: " + (val("mood") || "libre") + "\n" +
+        "- Ritmo / tempo: " + (tempo || "libre") + "\n" +
+        "- Instrumentos: " + (val("instruments") || "libre") + "\n" +
+        "- Estilo vocal: " + (val("vocal_style") || "libre") + "\n" +
+        "- Producción: " + (val("production_notes") || "libre") + "\n" +
+        "- Excluir: " + (val("exclude_styles") || "ninguno") + "\n\n" +
+        'Letra actual (texto completo entre comillas triples):\n"""\n' +
+        lyrics +
+        '\n"""'
+      );
+    }
+
+    function completeCoachChat(messages, temperature) {
+      var key = val("llm_api_key").trim();
+      var model = val("llm_model").trim();
+      if (!window.PagesAuth || !window.PagesAuth.isAuthed()) {
+        return Promise.reject(new Error("Entrá con GitHub + QR para usar el asistente en Pages."));
+      }
+      if (!key || !model) {
+        if (window.PagesAuth.openSettings) window.PagesAuth.openSettings();
+        return Promise.reject(new Error("En Configuración pegá tu API key y el modelo."));
+      }
+      return fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + key,
+        },
+        body: JSON.stringify({ model: model, temperature: temperature, messages: messages }),
+      })
+        .then(function (r) {
+          return r.json().then(function (data) {
+            return { ok: r.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (!result.ok) {
+            throw new Error(
+              (result.data && result.data.error && result.data.error.message) || "No se pudo contactar al LLM."
+            );
+          }
+          var text =
+            result.data.choices &&
+            result.data.choices[0] &&
+            result.data.choices[0].message &&
+            result.data.choices[0].message.content;
+          if (!text) throw new Error("El LLM no devolvió texto.");
+          return text.trim();
+        });
+    }
+
+    if (window.initLyricsCoach) {
+      window.initLyricsCoach({
+        mode: "pages",
+        form: form,
+        buildContextBlock: buildCoachContextBlock,
+        completeChat: completeCoachChat,
+      });
+    }
+
+    }).catch(function () {
+      document.body.insertAdjacentHTML("beforeend", '<p class="card">No se pudieron cargar data/options.json. Publicá la carpeta docs/ completa.</p>');
+    });
+  }
+
+  if (window.PagesAuth && window.PagesAuth.bootPage) {
+    window.PagesAuth.bootPage().then(function (ok) {
+      if (ok) bootWorkflow();
+    });
+  }
 })();

@@ -163,7 +163,7 @@
               input.value = "";
               renderLoggedIn(identity.login);
               status.textContent = "Repo verificado.";
-              var next = new URLSearchParams(window.location.search).get("next") || "index.html#sec-secrets";
+              var next = new URLSearchParams(window.location.search).get("next") || "index.html#configuracion";
               window.location.href = next;
             })
             .catch(function (err) {
@@ -184,8 +184,12 @@
       });
   }
 
+  function revealAppShell() {
+    document.documentElement.classList.remove("auth-pending");
+  }
+
   function bootPage() {
-    fetch("data/auth.json")
+    return fetch("data/auth.json")
       .then(function (r) { return r.ok ? r.json() : {}; })
       .catch(function () { return {}; })
       .then(function (config) {
@@ -196,37 +200,88 @@
           var here = window.location.pathname.split("/").pop() || "index.html";
           var hash = window.location.hash || "";
           window.location.replace("login.html?next=" + encodeURIComponent(here + hash));
-          return;
+          return false;
         }
         var nav = document.getElementById("pages-auth-nav");
         if (nav) {
-          nav.innerHTML = session
-            ? '<span class="muted">' + esc(session.login) + '</span> <button type="button" class="btn btn-secondary" id="pages-logout">Salir</button>'
-            : '<a class="btn" href="login.html">Entrar con GitHub + QR</a>';
+          nav.innerHTML =
+            '<span class="muted">' + esc(session.login) + '</span> <button type="button" class="btn btn-secondary" id="pages-logout">Salir</button>';
         }
         var logout = document.getElementById("pages-logout");
         if (logout) {
           logout.addEventListener("click", function () {
             clearSession();
-            window.location.reload();
+            window.location.href = "login.html";
           });
         }
-        var secrets = document.getElementById("sec-secrets");
-        var locked = document.getElementById("sec-secrets-locked");
-        if (session) {
-          if (secrets) secrets.hidden = false;
-          if (locked) locked.hidden = true;
-        } else {
-          if (secrets) secrets.hidden = true;
-          if (locked) locked.hidden = false;
-        }
+        applySecretsVisibility(session);
+        revealAppShell();
+        return true;
       });
   }
+
+  function applySecretsVisibility(session) {
+    var authed = Boolean(session);
+    var secrets = document.getElementById("sec-secrets");
+    var locked = document.getElementById("sec-secrets-locked");
+    if (secrets) secrets.hidden = !authed;
+    if (locked) locked.hidden = authed;
+  }
+
+  function isSettingsHash() {
+    var hash = window.location.hash || "";
+    return hash === "#configuracion" || hash === "#sec-secrets" || hash === "#sec-auth";
+  }
+
+  function openSettings() {
+    var overlay = document.getElementById("settings-overlay");
+    if (!overlay) return;
+    overlay.hidden = false;
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("settings-open");
+  }
+
+  function closeSettings() {
+    var overlay = document.getElementById("settings-overlay");
+    if (!overlay) return;
+    overlay.hidden = true;
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("settings-open");
+    if (isSettingsHash()) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }
+
+  function bindSettingsPanel() {
+    var overlay = document.getElementById("settings-overlay");
+    var openBtn = document.getElementById("open-settings");
+    var closeBtn = document.getElementById("close-settings");
+    if (!overlay || !openBtn) return;
+    openBtn.addEventListener("click", function () {
+      openSettings();
+      if (window.location.hash !== "#configuracion") {
+        history.replaceState(null, "", "#configuracion");
+      }
+    });
+    if (closeBtn) closeBtn.addEventListener("click", closeSettings);
+    overlay.addEventListener("click", function (event) {
+      if (event.target === overlay) closeSettings();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeSettings();
+    });
+    applySecretsVisibility(loadSession());
+    if (isSettingsHash()) openSettings();
+  }
+
+  bindSettingsPanel();
 
   global.PagesAuth = {
     bootLogin: bootLogin,
     bootPage: bootPage,
     isAuthed: isAuthed,
     session: loadSession,
+    openSettings: openSettings,
+    closeSettings: closeSettings,
   };
 })(window);

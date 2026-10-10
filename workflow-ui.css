@@ -1,0 +1,380 @@
+/* Workflow mobile-first UI — keep in sync with docs/workflow-ui.css */
+
+.workflow-shell {
+  position: relative;
+  padding-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .workflow-shell {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+.workflow-hero {
+  margin-bottom: 1rem;
+}
+
+.workflow-hero h1 {
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+}
+
+.workflow-hero-intro {
+  margin: 0 0 0.75rem;
+}
+
+.workflow-hero-more summary {
+  cursor: pointer;
+  color: var(--accent-hover);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.workflow-stepper {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 0 0.75rem;
+  margin: 0 0 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  background: linear-gradient(var(--bg) 70%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.workflow-step-pill {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 4.5rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #12151e;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.workflow-step-pill .pill-num {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.workflow-step-pill.is-active {
+  border-color: var(--accent);
+  background: #252040;
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.35);
+}
+
+.workflow-step-pill.is-active .pill-num {
+  color: #fff;
+}
+
+.workflow-step-pill.is-done {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.workflow-step-pill.is-done .pill-num::after {
+  content: " ✓";
+  font-size: 0.75rem;
+}
+
+.workflow-step-pill:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.workflow-step.card {
+  animation: workflowFadeIn 0.22s ease-out;
+}
+
+@keyframes workflowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.workflow-nav-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .workflow-nav-mobile {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    padding: 0.65rem 0.85rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(15, 17, 23, 0.94);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+
+  .workflow-nav-mobile .btn {
+    min-height: 44px;
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .workflow-nav-mobile #workflow-step-label {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .workflow-shell .workflow-step .actions .btn-secondary[data-prev] {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .workflow-shell .btn,
+  .workflow-shell .option-chip {
+    min-height: 44px;
+  }
+
+  .workflow-shell input[type="text"],
+  .workflow-shell input[type="number"],
+  .workflow-shell input[type="password"],
+  .workflow-shell textarea,
+  .workflow-shell select {
+    font-size: 16px;
+  }
+
+  .workflow-shell .copy-block .btn {
+    position: static;
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    min-height: 44px;
+  }
+
+  .workflow-shell .copy-block pre {
+    font-size: 0.88rem;
+    padding-top: 0.75rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .workflow-nav-mobile {
+    display: none !important;
+  }
+}
+
+.lyrics-coach {
+  margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background: #12151e;
+}
+
+.lyrics-coach summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--accent-hover);
+}
+
+.lyrics-coach-body {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.lyrics-coach-thread {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+}
+
+.lyrics-coach-msg {
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.92rem;
+}
+
+.lyrics-coach-msg--assistant {
+  background: #1a1f2e;
+  border: 1px solid var(--border);
+}
+
+.lyrics-coach-msg--user {
+  background: #252040;
+  border: 1px solid rgba(124, 92, 255, 0.35);
+  align-self: flex-end;
+  max-width: 95%;
+}
+
+.lyrics-coach-msg-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.lyrics-coach-msg p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.lyrics-coach-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.lyrics-coach .option-chip,
+button.option-chip.lyrics-coach-chip {
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  color: var(--text);
+  background: #1a1f2e;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.lyrics-coach .option-chip:hover,
+button.option-chip.lyrics-coach-chip:hover {
+  color: #fff;
+  border-color: var(--accent);
+  background: #252040;
+}
+
+.lyrics-coach .option-chip:focus-visible,
+button.option-chip.lyrics-coach-chip:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
+}
+
+button.option-chip.lyrics-coach-chip-apply {
+  border-color: var(--ok);
+  color: #fff;
+  background: #1a3328;
+  font-weight: 600;
+}
+
+button.option-chip.lyrics-coach-chip-apply:hover {
+  background: #234a38;
+  border-color: var(--ok);
+}
+
+.lyrics-coach-snippet-diff {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+  padding: 0.65rem;
+  border-radius: 10px;
+  border: 1px dashed var(--border);
+  background: #0f1218;
+}
+
+.lyrics-coach-snippet-col h5 {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.lyrics-coach-snippet-col pre {
+  margin: 0;
+  max-height: 120px;
+  overflow: auto;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 768px) {
+  .lyrics-coach-snippet-diff {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lyrics-coach-compare {
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.lyrics-coach-compare h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+}
+
+.lyrics-coach-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.lyrics-coach-compare-col h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.lyrics-coach-compare-col pre {
+  max-height: 320px;
+  overflow: auto;
+  margin: 0;
+  font-size: 0.88rem;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 768px) {
+  .lyrics-coach-compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lyrics-coach-compare-actions .btn {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lyrics-coach-actions .btn {
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .lyrics-coach-actions {
+    flex-direction: column;
+  }
+}
