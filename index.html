@@ -279,11 +279,17 @@
         <p class="muted" id="llm-pages-status">Modelo: — · Key: falta key</p>
         <label for="llm_api_key">API key Groq (solo esta pestaña)</label>
         <input type="password" id="llm_api_key" autocomplete="off" placeholder="Pegá tu key de console.groq.com">
+        <p class="muted">Después de guardar la key se cargan los modelos disponibles; elegí uno antes de probar.</p>
         <label for="llm_model">Modelo</label>
-        <input type="text" id="llm_model" placeholder="llama-3.3-70b-versatile" value="llama-3.3-70b-versatile">
+        <select id="llm_model" disabled>
+          <option value="">Guardá la API key para cargar modelos…</option>
+        </select>
+        <label for="llm_model_manual" id="llm_model_manual_label" hidden>Modelo (manual, si falla la lista)</label>
+        <input type="text" id="llm_model_manual" hidden placeholder="llama-3.3-70b-versatile">
         <div class="actions">
           <button type="button" class="btn" id="llm-pages-save">Guardar API key y modelo en esta pestaña</button>
-          <button type="button" class="btn btn-secondary" id="llm-pages-probe">Probar conexión Groq</button>
+          <button type="button" class="btn btn-secondary" id="llm-pages-refresh-models">Actualizar lista de modelos</button>
+          <button type="button" class="btn btn-secondary" id="llm-pages-probe" disabled>Probar conexión Groq</button>
         </div>
         <p class="muted" id="llm-pages-save-status" aria-live="polite"></p>
         <p class="muted">
@@ -296,7 +302,7 @@
   </div>
 
   <script src="pages_auth.js?v=6"></script>
-  <script src="pages_llm.js?v=1"></script>
+  <script src="pages_llm.js?v=2"></script>
   <script src="lyrics-coach.js?v=3"></script>
   <script src="app.js?v=7"></script>
 </body>
