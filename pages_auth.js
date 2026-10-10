@@ -55,6 +55,9 @@
     sessionStorage.removeItem(STORAGE_KEY);
     sessionStorage.removeItem("compositor-suno-pages-session");
     sessionStorage.removeItem("compositor-suno-llm");
+    if (global.PagesLlm && global.PagesLlm.clearLlm) {
+      global.PagesLlm.clearLlm();
+    }
   }
 
   function isAuthed() {
@@ -215,6 +218,9 @@
           });
         }
         applySecretsVisibility(session);
+        if (global.PagesLlm && global.PagesLlm.restoreToForm) {
+          global.PagesLlm.restoreToForm();
+        }
         revealAppShell();
         return true;
       });
@@ -283,5 +289,10 @@
     session: loadSession,
     openSettings: openSettings,
     closeSettings: closeSettings,
+    getLlmConfig: function () {
+      return global.PagesLlm && global.PagesLlm.getLlmForRequest
+        ? global.PagesLlm.getLlmForRequest()
+        : { apiKey: "", model: "", fromStorage: false };
+    },
   };
 })(window);

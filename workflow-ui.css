@@ -378,3 +378,118 @@ button.option-chip.lyrics-coach-chip-apply:hover {
     flex-direction: column;
   }
 }
+
+.workflow-save-line {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.required-mark {
+  color: var(--warn, #c90);
+}
+
+.workflow-history-panel {
+  margin-bottom: 1rem;
+}
+
+.composition-history-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.composition-history-detail li {
+  margin-bottom: 0.75rem;
+}
+
+.composition-table-wrap {
+  overflow-x: auto;
+}
+
+.composition-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.composition-table th,
+.composition-table td {
+  text-align: left;
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.12));
+  vertical-align: middle;
+}
+
+.composition-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.inline-form {
+  display: inline;
+}
+
+.composition-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.composition-list-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.12));
+}
+
+.composition-list-item:last-child {
+  border-bottom: none;
+}
+
+.composition-list-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.composition-list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.composition-list-actions .btn {
+  font-size: 0.88rem;
+  padding: 0.35rem 0.65rem;
+}
+
+.composition-legacy-summary {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .composition-list-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .composition-list-actions {
+    flex-direction: column;
+  }
+
+  .composition-list-actions .btn,
+  .composition-list-actions form {
+    width: 100%;
+  }
+
+  .composition-list-actions .btn {
+    min-height: 44px;
+  }
+}

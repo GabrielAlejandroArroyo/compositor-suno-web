@@ -435,10 +435,13 @@
         status.textContent = "Entrá con GitHub + QR para usar el LLM en esta página, o usá la app local.";
         return;
       }
-      var key = val("llm_api_key").trim();
-      var model = val("llm_model").trim();
+      var cfg = window.PagesLlm && window.PagesLlm.getLlmForRequest
+        ? window.PagesLlm.getLlmForRequest()
+        : { apiKey: val("llm_api_key").trim(), model: val("llm_model").trim() };
+      var key = (cfg.apiKey || "").trim();
+      var model = (cfg.model || "").trim();
       if (!key || !model) {
-        status.textContent = "En Configuración (engranaje) pegá tu API key y el modelo. La key del servidor no está en Pages.";
+        status.textContent = "En Configuración pegá tu API key y modelo, y tocá «Guardar en esta pestaña».";
         if (window.PagesAuth && window.PagesAuth.openSettings) window.PagesAuth.openSettings();
         return;
       }
@@ -467,7 +470,14 @@
           setVal("lyrics_block", text.trim());
           status.textContent = "Letra lista. Podés editarla.";
         })
-        .catch(function (err) { status.textContent = err.message; })
+        .catch(function (err) {
+          var msg = err.message || "Error al generar.";
+          if (/failed to fetch/i.test(msg) && window.PagesLlm) {
+            msg =
+              "No se pudo contactar a Groq desde el navegador (CORS). Usá http://127.0.0.1:8000/guia/workflow.";
+          }
+          status.textContent = msg;
+        })
         .then(function () { button.disabled = false; });
     });
 
@@ -514,14 +524,17 @@
     }
 
     function completeCoachChat(messages, temperature) {
-      var key = val("llm_api_key").trim();
-      var model = val("llm_model").trim();
+      var cfg = window.PagesLlm && window.PagesLlm.getLlmForRequest
+        ? window.PagesLlm.getLlmForRequest()
+        : { apiKey: val("llm_api_key").trim(), model: val("llm_model").trim() };
+      var key = (cfg.apiKey || "").trim();
+      var model = (cfg.model || "").trim();
       if (!window.PagesAuth || !window.PagesAuth.isAuthed()) {
         return Promise.reject(new Error("Entrá con GitHub + QR para usar el asistente en Pages."));
       }
       if (!key || !model) {
         if (window.PagesAuth.openSettings) window.PagesAuth.openSettings();
-        return Promise.reject(new Error("En Configuración pegá tu API key y el modelo."));
+        return Promise.reject(new Error("En Configuración pegá tu API key y modelo, y guardá en esta pestaña."));
       }
       return fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",

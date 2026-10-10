@@ -272,17 +272,32 @@
         </p>
         <label for="secret_notes">Notas privadas de composición (solo esta pestaña)</label>
         <textarea id="secret_notes" rows="3" placeholder="Referencias, nombres, ideas que no querés dejar a la vista pública."></textarea>
-        <label for="llm_api_key">API key propia para esta pestaña (opcional, no se sube a GitHub)</label>
-        <input type="password" id="llm_api_key" autocomplete="off">
+        <p class="muted">
+          La API key y el modelo se guardan solo en <strong>sessionStorage</strong> de esta pestaña.
+          No se suben a GitHub ni al repo público.
+        </p>
+        <p class="muted" id="llm-pages-status">Modelo: — · Key: falta key</p>
+        <label for="llm_api_key">API key Groq (solo esta pestaña)</label>
+        <input type="password" id="llm_api_key" autocomplete="off" placeholder="Pegá tu key de console.groq.com">
         <label for="llm_model">Modelo</label>
-        <input type="text" id="llm_model" placeholder="llama-3.3-70b-versatile">
+        <input type="text" id="llm_model" placeholder="llama-3.3-70b-versatile" value="llama-3.3-70b-versatile">
+        <div class="actions">
+          <button type="button" class="btn" id="llm-pages-save">Guardar API key y modelo en esta pestaña</button>
+          <button type="button" class="btn btn-secondary" id="llm-pages-probe">Probar conexión Groq</button>
+        </div>
+        <p class="muted" id="llm-pages-save-status" aria-live="polite"></p>
+        <p class="muted">
+          Si «Probar conexión» falla por CORS, usá la app local:
+          <a href="http://127.0.0.1:8000/guia/workflow">127.0.0.1:8000</a> (LLM vía servidor, sin key en el navegador).
+        </p>
       </section>
     </aside>
   </div>
   </div>
 
-  <script src="pages_auth.js?v=5"></script>
+  <script src="pages_auth.js?v=6"></script>
+  <script src="pages_llm.js?v=1"></script>
   <script src="lyrics-coach.js?v=3"></script>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
